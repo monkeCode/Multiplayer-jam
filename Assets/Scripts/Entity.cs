@@ -22,7 +22,10 @@ public class Entity : MonoBehaviour, IDamageable, IPunObservable
 
     protected virtual void Update()
     {
-        Move(moveDirection);
+        if (photonView.IsMine)
+        {
+            Move(moveDirection);
+        }
     }
 
     protected virtual void Move(float xMove)
@@ -50,12 +53,10 @@ public class Entity : MonoBehaviour, IDamageable, IPunObservable
         if (stream.IsWriting)
         {
             stream.SendNext(rb.velocity);
-            stream.SendNext(transform.position);
         }
         else
         {
             rb.velocity = (Vector2)stream.ReceiveNext();
-            transform.position = (Vector3)stream.ReceiveNext();
         }
         
     }
