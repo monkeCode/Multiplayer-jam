@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Server : MonoBehaviourPunCallbacks
 {
@@ -24,6 +25,7 @@ public class Server : MonoBehaviourPunCallbacks
         Debug.Log("Joined room: " + PhotonNetwork.CurrentRoom.Name);
         base.OnJoinedRoom(); 
         PhotonNetwork.Instantiate("Player", new Vector3(1, 1, 0), Quaternion.identity);
+        SceneManager.LoadScene("SampleScene");
     }
     private void Awake()
     {
@@ -33,6 +35,7 @@ public class Server : MonoBehaviourPunCallbacks
         {
             Destroy(gameObject);
         }
+        DontDestroyOnLoad(gameObject);
     }
 
     void Start()
