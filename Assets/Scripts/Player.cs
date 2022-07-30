@@ -4,11 +4,13 @@ using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(SpriteRenderer))]
 public class Player : Entity, IPunObservable
 {
     [SerializeField] private float _jumpForce;
     private Inputer _inputer;
     private PhotonView _photonView;
+    private SpriteRenderer _renderer;
     protected override void Start()
     {
         base.Start();
@@ -17,7 +19,8 @@ public class Player : Entity, IPunObservable
         _inputer.Player.Move.performed += ctx => UpdateMoveDirection(ctx.ReadValue<float>());
         _inputer.Player.Move.canceled += ctx => UpdateMoveDirection(0);
         _inputer.Player.Jump.performed += ctx => Jump();
-        
+        _renderer = GetComponent<SpriteRenderer>();
+        _renderer.color = Color.green;
         _photonView = GetComponent<PhotonView>();
     }
 
@@ -36,6 +39,12 @@ public class Player : Entity, IPunObservable
             rb.velocity = new Vector2(rb.velocity.x, _jumpForce);
         }
 
+    }
+    
+    [PunRPC]
+    void Chat()
+    { 
+        Debug.Log(PhotonNetwork.GetPing());
     }
     
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)

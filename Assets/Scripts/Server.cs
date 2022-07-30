@@ -23,9 +23,9 @@ public class Server : MonoBehaviourPunCallbacks
     {
         Debug.Log("Joined room: " + PhotonNetwork.CurrentRoom.Name);
         base.OnJoinedRoom();
-        PhotonNetwork.Instantiate("Player", new Vector3(1, 1, 0), Quaternion.identity);
+      var player = PhotonNetwork.Instantiate("Player", new Vector3(1, 1, 0), Quaternion.identity);
+      player.GetComponent<PhotonView>().RPC("Chat", RpcTarget.All);
     }
-
     private void Awake()
     {
         if (Instance == null)
@@ -41,6 +41,7 @@ public class Server : MonoBehaviourPunCallbacks
         Debug.Log(" started");
         PhotonNetwork.ConnectUsingSettings();
     }
+    
 
     public void CreateRoom(string roomName)
     {
