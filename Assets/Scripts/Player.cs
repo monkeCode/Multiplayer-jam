@@ -8,7 +8,7 @@ public class Player : Entity, IPunObservable
 {
     [SerializeField] private float _jumpForce;
     private Inputer _inputer;
-
+    private PhotonView _photonView;
     protected override void Start()
     {
         base.Start();
@@ -17,16 +17,25 @@ public class Player : Entity, IPunObservable
         _inputer.Player.Move.performed += ctx => UpdateMoveDirection(ctx.ReadValue<float>());
         _inputer.Player.Move.canceled += ctx => UpdateMoveDirection(0);
         _inputer.Player.Jump.performed += ctx => Jump();
+        
+        _photonView = GetComponent<PhotonView>();
     }
 
     private void UpdateMoveDirection(float dir)
     {
-        moveDirection = dir;
+        if(_photonView.IsMine)
+        {
+            moveDirection = dir;
+        }
     }
 
     private void Jump()
     {
-        rb.velocity = new Vector2(rb.velocity.x, _jumpForce);
+        if(_photonView.IsMine)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, _jumpForce);
+        }
+
     }
     
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
