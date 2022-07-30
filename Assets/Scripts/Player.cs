@@ -4,7 +4,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
-public class Player : Entity
+public class Player : Entity, IPunObservable
 {
     [SerializeField] private float _jumpForce;
     private Inputer _inputer;
