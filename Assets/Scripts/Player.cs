@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
 public class Player : Entity
 {
     [SerializeField] private float _jumpForce;
+    [SerializeField] private GameObject _camera;
     private Inputer _inputer;
+    
     protected override void Start()
     {
         base.Start();

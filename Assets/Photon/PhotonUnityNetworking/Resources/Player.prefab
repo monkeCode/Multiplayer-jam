@@ -146,6 +146,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 7
   _jumpForce: 5
+  _camera: {fileID: 7555898749041550354, guid: 3cae33ddcaea07e4894273538f7acc8c, type: 3}
 --- !u!70 &8489664082669918404
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
