@@ -52,11 +52,11 @@ public class Entity : MonoBehaviour, IDamageable, IPunObservable
     {
         if (stream.IsWriting)
         {
-            stream.SendNext(rb.velocity);
+            //stream.SendNext(rb.velocity);
         }
         else
         {
-            rb.velocity = (Vector2)stream.ReceiveNext();
+           // rb.velocity = (Vector2)stream.ReceiveNext();
         }
         
     }
