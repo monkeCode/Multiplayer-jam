@@ -15,6 +15,13 @@ public class Player : Entity
         _inputer.Player.Move.performed += ctx => UpdateMoveDirection(ctx.ReadValue<float>());
         _inputer.Player.Move.canceled += ctx => UpdateMoveDirection(0);
         _inputer.Player.Jump.performed += ctx => Jump();
+        _inputer.Menu.LoadScene.performed += ctx =>
+        {
+            if(PhotonNetwork.IsMasterClient)
+            {
+                PhotonNetwork.LoadLevel("SampleScene");
+            }
+        };
     }
 
     private void UpdateMoveDirection(float dir)

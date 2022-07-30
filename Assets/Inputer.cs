@@ -92,6 +92,34 @@ public partial class @Inputer : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Menu"",
+            ""id"": ""90c875a4-e301-4c98-8186-a7a47db1b312"",
+            ""actions"": [
+                {
+                    ""name"": ""LoadScene"",
+                    ""type"": ""Button"",
+                    ""id"": ""60291254-0c50-4fb4-ba14-ea1b72198de7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""578c6d32-330f-40b4-8b84-3567bcde92e2"",
+                    ""path"": ""<Keyboard>/l"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LoadScene"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -100,6 +128,9 @@ public partial class @Inputer : IInputActionCollection2, IDisposable
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
+        // Menu
+        m_Menu = asset.FindActionMap("Menu", throwIfNotFound: true);
+        m_Menu_LoadScene = m_Menu.FindAction("LoadScene", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -196,9 +227,46 @@ public partial class @Inputer : IInputActionCollection2, IDisposable
         }
     }
     public PlayerActions @Player => new PlayerActions(this);
+
+    // Menu
+    private readonly InputActionMap m_Menu;
+    private IMenuActions m_MenuActionsCallbackInterface;
+    private readonly InputAction m_Menu_LoadScene;
+    public struct MenuActions
+    {
+        private @Inputer m_Wrapper;
+        public MenuActions(@Inputer wrapper) { m_Wrapper = wrapper; }
+        public InputAction @LoadScene => m_Wrapper.m_Menu_LoadScene;
+        public InputActionMap Get() { return m_Wrapper.m_Menu; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(MenuActions set) { return set.Get(); }
+        public void SetCallbacks(IMenuActions instance)
+        {
+            if (m_Wrapper.m_MenuActionsCallbackInterface != null)
+            {
+                @LoadScene.started -= m_Wrapper.m_MenuActionsCallbackInterface.OnLoadScene;
+                @LoadScene.performed -= m_Wrapper.m_MenuActionsCallbackInterface.OnLoadScene;
+                @LoadScene.canceled -= m_Wrapper.m_MenuActionsCallbackInterface.OnLoadScene;
+            }
+            m_Wrapper.m_MenuActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @LoadScene.started += instance.OnLoadScene;
+                @LoadScene.performed += instance.OnLoadScene;
+                @LoadScene.canceled += instance.OnLoadScene;
+            }
+        }
+    }
+    public MenuActions @Menu => new MenuActions(this);
     public interface IPlayerActions
     {
         void OnMove(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
+    }
+    public interface IMenuActions
+    {
+        void OnLoadScene(InputAction.CallbackContext context);
     }
 }
