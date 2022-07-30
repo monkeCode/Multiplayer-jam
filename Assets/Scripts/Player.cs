@@ -49,6 +49,7 @@ public class Player : Entity, IPunObservable
         {
             Vector3 pos = Vector3.zero;
             stream.Serialize(ref pos);  // pos gets filled-in. must be used somewhere
+            transform.position = pos;
         }
     }
 }
