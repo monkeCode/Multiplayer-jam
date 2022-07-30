@@ -10,6 +10,7 @@ public class Player : Entity
     protected override void Start()
     {
         base.Start();
+        DontDestroyOnLoad(gameObject);
         _inputer = new Inputer();
         _inputer.Enable();
         _inputer.Player.Move.performed += ctx => UpdateMoveDirection(ctx.ReadValue<float>());
