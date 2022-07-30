@@ -16,8 +16,15 @@ public class Server : MonoBehaviourPunCallbacks
     public override void OnCreatedRoom()
     {
         Debug.Log("Created room: " + PhotonNetwork.CurrentRoom.Name);
+        base.OnCreatedRoom();
     }
-    
+
+    public override void OnJoinedRoom()
+    {
+        Debug.Log("Joined room: " + PhotonNetwork.CurrentRoom.Name);
+        base.OnJoinedRoom();
+    }
+
     private void Awake()
     {
         if (Instance == null)
@@ -36,10 +43,9 @@ public class Server : MonoBehaviourPunCallbacks
 
     public void CreateRoom(string roomName)
     {
-        PhotonNetwork.ConnectToMaster("localhost", 5055, "1.0");
         PhotonNetwork.CreateRoom(roomName, new RoomOptions{ MaxPlayers = 2}, TypedLobby.Default);
     }
-
+    
     public void JoinRoom(string roomName)
     {
         PhotonNetwork.JoinRoom(roomName);
