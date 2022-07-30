@@ -30,7 +30,7 @@ public class Entity : MonoBehaviour, IDamageable, IPunObservable
 
     protected virtual void Move(float xMove)
     {
-        rb.velocity = new Vector2(xMove * speed, rb.velocity.y);
+        rb.AddForce(new Vector2(xMove * speed, 0));
     }
 
     public virtual void TakeDamage(int damage)

@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Fan : MonoBehaviour
 {
-    List<Rigidbody2D> rigidbodies = new List<Rigidbody2D>();
-    [SerializeField] [Range(-1, 1)] float force;
+    List<Rigidbody2D> _rigidbodies = new();
+    [SerializeField] [Range(-3, 3)] float _force;
 
     // Start is called before the first frame update
     void Start()
@@ -16,9 +16,9 @@ public class Fan : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        foreach (var rb in rigidbodies)
+        foreach (var rb in _rigidbodies)
         {
-            rb.AddForce(new Vector2(Mathf.Cos((transform.rotation.z +90) * Mathf.Deg2Rad), Mathf.Sin((transform.rotation.z +90) * Mathf.Deg2Rad) * force));
+            rb.AddForce(new Vector2(Mathf.Cos((transform.eulerAngles.z +90) * Mathf.Deg2Rad), Mathf.Sin((transform.eulerAngles.z +90) * Mathf.Deg2Rad) * _force));
         }
             
     }
@@ -26,11 +26,11 @@ public class Fan : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.TryGetComponent(out Rigidbody2D x))
-            rigidbodies.Add(x);
+            _rigidbodies.Add(x);
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.TryGetComponent(out Rigidbody2D x))
-            rigidbodies.Remove(x);
+            _rigidbodies.Remove(x);
     }
 }
