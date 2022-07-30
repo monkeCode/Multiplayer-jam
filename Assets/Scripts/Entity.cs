@@ -50,10 +50,12 @@ public class Entity : MonoBehaviour, IDamageable, IPunObservable
         if (stream.IsWriting)
         {
             stream.SendNext(rb.velocity);
+            stream.SendNext(transform.position);
         }
         else
         {
             rb.velocity = (Vector2)stream.ReceiveNext();
+            transform.position = (Vector3)stream.ReceiveNext();
         }
         
     }

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
-[RequireComponent(typeof(Rigidbody2D))]
 public class Player : Entity
 {
     [SerializeField] private float _jumpForce;
@@ -35,18 +34,18 @@ public class Player : Entity
 
     }
 
-    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-        if (stream.IsWriting)
-        {
-            Vector3 pos = transform.localPosition;
-            stream.Serialize(ref pos);
-        }
-        else
-        {
-            Vector3 pos = Vector3.zero;
-            stream.Serialize(ref pos);  // pos gets filled-in. must be used somewhere
-            transform.position = pos;
-        }
-    }
+    // public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    // {
+    //     if (stream.IsWriting)
+    //     {
+    //         Vector3 pos = transform.localPosition;
+    //         stream.Serialize(ref pos);
+    //     }
+    //     else
+    //     {
+    //         Vector3 pos = Vector3.zero;
+    //         stream.Serialize(ref pos);  // pos gets filled-in. must be used somewhere
+    //         transform.position = pos;
+    //     }
+    // }
 }
