@@ -18,6 +18,7 @@ public class Server : MonoBehaviourPunCallbacks
     {
         Debug.Log("Created room: " + PhotonNetwork.CurrentRoom.Name);
         base.OnCreatedRoom();
+        SceneManager.LoadScene("SampleScene");
     }
 
     public override void OnJoinedRoom()
@@ -25,7 +26,6 @@ public class Server : MonoBehaviourPunCallbacks
         Debug.Log("Joined room: " + PhotonNetwork.CurrentRoom.Name);
         base.OnJoinedRoom(); 
         PhotonNetwork.Instantiate("Player", new Vector3(1, 1, 0), Quaternion.identity);
-        SceneManager.LoadScene("SampleScene");
     }
     private void Awake()
     {
