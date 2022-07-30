@@ -8,7 +8,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using Sequence = DG.Tweening.Sequence;
 
-public class Lift : MonoBehaviour
+public class Lift : MonoBehaviour, IPunObservable
 {
     [SerializeField] private List<Transform> _points = new();
     [SerializeField] private bool _isMoving = false;
@@ -65,5 +65,20 @@ public class Lift : MonoBehaviour
         if (state)
             _liftSequence.Play();
         else _liftSequence.Pause();
+    }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        //sync transform
+        if (stream.IsWriting)
+        {
+            stream.SendNext(transform.position);
+            stream.SendNext(transform.rotation);
+        }
+        else
+        {
+            transform.position = (Vector3) stream.ReceiveNext();
+            transform.rotation = (Quaternion) stream.ReceiveNext();
+        }
     }
 }
