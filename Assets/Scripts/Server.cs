@@ -24,7 +24,7 @@ public class Server : MonoBehaviourPunCallbacks
         Debug.Log("Joined room: " + PhotonNetwork.CurrentRoom.Name);
         base.OnJoinedRoom();
       var player = PhotonNetwork.Instantiate("Player", new Vector3(1, 1, 0), Quaternion.identity);
-      player.GetComponent<PhotonView>().RPC("Chat", RpcTarget.All);
+      player.GetComponent<PhotonView>().RPC("GetPing", RpcTarget.All);
     }
     private void Awake()
     {

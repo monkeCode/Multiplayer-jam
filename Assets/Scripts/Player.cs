@@ -42,7 +42,7 @@ public class Player : Entity, IPunObservable
     }
     
     [PunRPC]
-    void Chat()
+    void GetPing()
     { 
         Debug.Log(PhotonNetwork.GetPing());
     }
