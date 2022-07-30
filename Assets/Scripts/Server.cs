@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
@@ -24,7 +25,8 @@ public class Server : MonoBehaviourPunCallbacks
     {
         Debug.Log("Joined room: " + PhotonNetwork.CurrentRoom.Name);
         base.OnJoinedRoom();
-        PhotonNetwork.Instantiate("Player", new Vector3(1, 1, 0), Quaternion.identity);
+        var player =  PhotonNetwork.Instantiate("Player", new Vector3(1, 1, 0), Quaternion.identity);
+        Camera.main.GetComponent<CinemachineVirtualCamera>().Follow = player.transform;
     }
     private void Awake()
     {
