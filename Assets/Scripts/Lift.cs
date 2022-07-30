@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
+using Photon.Pun;
 using Unity.VisualScripting;
 using UnityEngine;
 using Sequence = DG.Tweening.Sequence;
@@ -14,11 +15,13 @@ public class Lift : MonoBehaviour
     [SerializeField] private bool _isLoop;
     [SerializeField] private float _speed;
     private Sequence _liftSequence;
-
+    private PhotonView _photonView;
     public void Start()
     {
+        _photonView = GetComponent<PhotonView>();
+        if (!_photonView.IsMine) return;
+        
         CreateSequence();
-
         if (_isMoving)
             _liftSequence.Play();
         else _liftSequence.Pause();
@@ -57,6 +60,7 @@ public class Lift : MonoBehaviour
     }
     public void ChangeState(bool state)
     {
+        if (!_photonView.IsMine) return;
         _isMoving = state;
         if (state)
             _liftSequence.Play();
