@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Player : Entity
@@ -20,12 +22,6 @@ public class Player : Entity
     private void UpdateMoveDirection(float dir)
     {
         moveDirection = dir;
-    }
-
-    protected override void Update()
-    {
-        base.Update();
-        Debug.Log(moveDirection);
     }
 
     private void Jump()
