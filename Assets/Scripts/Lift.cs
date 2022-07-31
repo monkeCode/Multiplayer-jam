@@ -18,16 +18,35 @@ public class Lift : MonoBehaviour, IPunObservable, IToggle
     private Sequence _liftSequence;
     private PhotonView _photonView;
     private Rigidbody2D _rigidbody2D;
+    private Vector2 _lastPosition;
+    private Vector2 _nextPosition;
+    private Vector2 _velocity;
     public void Start()
     {
         _photonView = GetComponent<PhotonView>();
         _rigidbody2D = GetComponent<Rigidbody2D>();
         if (!_photonView.IsMine) return;
+
+        _lastPosition = transform.position;
         
         CreateSequence();
         if (_isMoving)
             _liftSequence.Play();
         else _liftSequence.Pause();
+    }
+     
+    private void Update()
+    {
+        if (_photonView.IsMine)
+        {
+            _nextPosition = transform.position;
+            _velocity = (_nextPosition - _lastPosition) / Time.deltaTime;
+        }
+        else
+        {
+            _rigidbody2D.velocity = _velocity;
+        }
+       
     }
 
     private void CreateSequence()
@@ -39,7 +58,6 @@ public class Lift : MonoBehaviour, IPunObservable, IToggle
             _liftSequence.Append(_rigidbody2D.
                 DOMove(_points[i].position, Vector2.Distance(_points[i-1].position, _points[i].position)/_speed).SetEase(Ease.Linear));
         }
-
         _liftSequence.onComplete += () =>
         {
             if (_isLoop)
@@ -77,14 +95,14 @@ public class Lift : MonoBehaviour, IPunObservable, IToggle
         {
             stream.SendNext(transform.position);
             stream.SendNext(transform.rotation);
-            stream.SendNext(_rigidbody2D.velocity);
+            stream.SendNext(_velocity);
             
         }
         else
         {
             transform.position = (Vector3) stream.ReceiveNext();
             transform.rotation = (Quaternion) stream.ReceiveNext();
-            _rigidbody2D.velocity = (Vector2) stream.ReceiveNext();
+            _velocity = (Vector2) stream.ReceiveNext();
         }
     }
 
