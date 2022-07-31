@@ -10,6 +10,7 @@ using UnityEngine.SceneManagement;
 public class Server : MonoBehaviourPunCallbacks
 {
     public static Server Instance { get; private set; }
+    private bool sceneLoaded;
     public override void OnConnectedToMaster()
     {
         Debug.Log("OnConnectedToMaster() was called by PUN.");
@@ -58,9 +59,22 @@ public class Server : MonoBehaviourPunCallbacks
         PhotonNetwork.JoinRoom(roomName);
     }
 
-    public void ChangeScene(string sceneName)
+    private void LoadLvl(string name)
     {
-        PhotonNetwork.LoadLevel(sceneName);
+        sceneLoaded = false;
+        PhotonNetwork.LoadLevel(name);
+        sceneLoaded = true;
+    }
+    
+    public IEnumerator MoveToGameScene(string nameScene)
+    {
+        PhotonNetwork.IsMessageQueueRunning = false;
+        LoadLvl(nameScene);
+        while(sceneLoaded == false)
+        {
+            yield return null;
+        }
+        PhotonNetwork.IsMessageQueueRunning = true;
     }
     
 }

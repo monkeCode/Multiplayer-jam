@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Fan : MonoBehaviour
+public class Fan : MonoBehaviour,IToggle
 {
     List<Rigidbody2D> _rigidbodies = new();
-    [SerializeField] [Range(-3, 3)] float _force;
+    [SerializeField] [Range(-7, 7)] float _force;
 
     // Start is called before the first frame update
     void Start()
@@ -32,5 +32,17 @@ public class Fan : MonoBehaviour
     {
         if (collision.TryGetComponent(out Rigidbody2D x))
             _rigidbodies.Remove(x);
+    }
+
+    public void Toggle(bool isOn)
+    {
+        if (isOn)
+        {
+            GetComponent<ParticleSystem>().Play();
+            GetComponent<Collider2D>().enabled = true;
+            return;
+        }
+        GetComponent<Collider2D>().enabled = false;
+        GetComponent<ParticleSystem>().Stop();
     }
 }

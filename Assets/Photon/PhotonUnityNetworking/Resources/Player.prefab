@@ -144,9 +144,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e87dcd184886eb468d38339781765a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 7
-  _jumpForce: 5
-  _camera: {fileID: 7555898749041550354, guid: 3cae33ddcaea07e4894273538f7acc8c, type: 3}
+  speed: 5
+  _jumpForce: 10
+  _fallMultiplier: 4
+  _lowJumpMultiplier: 3
+  _maxSpeed: 7
 --- !u!70 &8489664082669918404
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

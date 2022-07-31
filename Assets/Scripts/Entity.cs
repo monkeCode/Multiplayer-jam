@@ -38,6 +38,10 @@ public class Entity : MonoBehaviour, IDamageable, IPunObservable
         Kill();
     }
 
+   protected bool OnGround()
+   {
+       return true;
+   }
     public virtual void Heal(int heal)
     {
         
