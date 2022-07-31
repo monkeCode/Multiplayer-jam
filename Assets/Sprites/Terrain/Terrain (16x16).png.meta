@@ -68,7 +68,7 @@ TextureImporter:
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
-    textureFormat: -1
+    textureFormat: 4
     textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
@@ -3140,7 +3140,7 @@ TextureImporter:
     nameFileIdTable:
       Terrain (16x16)_128: 1392829780
       Terrain (16x16)_136: 1450362747
-      Terrain (16x16)_0: -280053686
+      Terrain (16x16)_91: 366380367
       Terrain (16x16)_89: -299343305
       Terrain (16x16)_74: 1225985054
       Terrain (16x16)_53: 64931913
@@ -3279,7 +3279,7 @@ TextureImporter:
       Terrain (16x16)_40: -693295705
       Terrain (16x16)_99: 66093033
       Terrain (16x16)_131: 1175810884
-      Terrain (16x16)_91: 366380367
+      Terrain (16x16)_0: -280053686
       Terrain (16x16)_119: -1365707549
       Terrain (16x16)_139: -1712360811
   spritePackingTag: 
