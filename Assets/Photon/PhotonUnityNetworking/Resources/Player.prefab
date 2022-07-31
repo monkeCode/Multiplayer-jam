@@ -149,6 +149,7 @@ MonoBehaviour:
   _fallMultiplier: 4
   _lowJumpMultiplier: 3
   _maxSpeed: 7
+  _item: {fileID: 0}
 --- !u!70 &6421362941355204436
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

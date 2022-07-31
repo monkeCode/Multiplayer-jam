@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Cinemachine;
 using Photon.Pun;
 using Photon.Realtime;
+using UnityEditor;
 using UnityEngine;
 
 public class Player : Entity
@@ -11,9 +12,10 @@ public class Player : Entity
     [SerializeField] private float _fallMultiplier = 2.5f;
     [SerializeField] private float _lowJumpMultiplier = 2f;
     [SerializeField] private float _maxSpeed;
-    private bool _isJump = false;
+    [SerializeField] private InventoryItem _item;
+    public InventoryItem Item => _item;
+    private bool _isJump;
     private Inputer _inputer;
-
     protected override void Start()
     {
         base.Start();
@@ -24,6 +26,10 @@ public class Player : Entity
         _inputer.Player.Move.canceled += ctx => UpdateMoveDirection(0);
         _inputer.Player.Jump.performed += ctx => Jump();
         _inputer.Player.Jump.canceled += ctx => _isJump = false;
+        _inputer.Player.Drop.performed += context =>
+        {
+            photonView.RPC(nameof(DropItem), RpcTarget.All);
+        };
         _inputer.Menu.LoadScene.performed += ctx =>
         {
             if (PhotonNetwork.IsMasterClient)
@@ -32,7 +38,6 @@ public class Player : Entity
             }
         };
     }
-
     protected override void Update()
     {
         base.Update();
@@ -47,9 +52,18 @@ public class Player : Entity
             rb.velocity += Vector2.up * (Physics2D.gravity.y * (_lowJumpMultiplier - 1) * Time.deltaTime);
     }
 
+    [PunRPC]
     private void DropItem()
     {
-        
+       var item = PhotonNetwork.Instantiate("WorldItemPrefab", transform.position, Quaternion.identity);
+         item.GetComponent<WorldItem>().photonView.RPC("SetItem", RpcTarget.All, _item);
+    }
+    [PunRPC]
+    public void SetItem(InventoryItem item)
+    {
+        if (_item != null) return;
+        Debug.Log($"{photonView.Owner.UserId} set item {item}");
+        _item = item;
     }
     private void UpdateMoveDirection(float dir)
     {
