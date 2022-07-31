@@ -2001,7 +2001,7 @@
         <member name="F:ExitGames.Client.Photon.OperationResponse.Parameters">
             <summary>A Dictionary of values returned by an operation, using byte-typed keys per value.</summary>
         </member>
-        <member name="P:ExitGames.Client.Photon.OperationResponse.Item(System.Byte)">
+        <member name="P:ExitGames.Client.Photon.OperationResponse.WorldItem(System.Byte)">
             <summary>
             Alternative access to the Parameters, which wraps up a TryGetValue() call on the Parameters Dictionary.
             </summary>
@@ -2032,7 +2032,7 @@
         <member name="F:ExitGames.Client.Photon.EventData.Parameters">
             <summary>The Parameters of an event is a Dictionary&lt;byte, object&gt;.</summary>
         </member>
-        <member name="P:ExitGames.Client.Photon.EventData.Item(System.Byte)">
+        <member name="P:ExitGames.Client.Photon.EventData.WorldItem(System.Byte)">
             <summary>
             Access to the Parameters of a Photon-defined event. Custom Events only use Code, Sender and CustomData.
             </summary>

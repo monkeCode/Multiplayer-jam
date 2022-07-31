@@ -47,6 +47,10 @@ public class Player : Entity
             rb.velocity += Vector2.up * (Physics2D.gravity.y * (_lowJumpMultiplier - 1) * Time.deltaTime);
     }
 
+    private void DropItem()
+    {
+        
+    }
     private void UpdateMoveDirection(float dir)
     {
         if (photonView.IsMine)
