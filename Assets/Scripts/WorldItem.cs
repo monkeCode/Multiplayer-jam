@@ -58,6 +58,7 @@ public class WorldItem : MonoBehaviourPun, IItem, IPunObservable
             if (player.Item != null) return;
             player.SetItem(_item);
             PhotonNetwork.Destroy(gameObject);
+            Destroy(gameObject);
         }
     }
 }

@@ -32,12 +32,12 @@ public class Player : Entity
         };
         _inputer.Player.ItemShoot.performed += context =>
         {
-            if (_item != null)
+            if (_item != null && photonView.IsMine)
                 _item.Use();
         };
         _inputer.Player.ItemShoot.canceled += context =>
         {
-            if (_item != null)
+            if (_item != null && photonView.IsMine)
                 _item.CanselUse();
         };
         _inputer.Menu.LoadScene.performed += ctx =>
