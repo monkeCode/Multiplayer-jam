@@ -39,8 +39,10 @@ public class Lift : MonoBehaviour, IPunObservable, IToggle
     {
         if (_photonView.IsMine)
         {
+            
+            _velocity = ((Vector2)transform.position - _lastPosition) / Time.deltaTime;
+            _lastPosition = _nextPosition;
             _nextPosition = transform.position;
-            _velocity = (_nextPosition - _lastPosition) / Time.deltaTime;
         }
         else
         {
