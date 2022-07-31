@@ -30,6 +30,16 @@ public class Player : Entity
         {
             photonView.RPC(nameof(DropItem), RpcTarget.All);
         };
+        _inputer.Player.ItemShoot.performed += context =>
+        {
+            if (_item != null)
+                _item.Use();
+        };
+        _inputer.Player.ItemShoot.canceled += context =>
+        {
+            if (_item != null)
+                _item.CanselUse();
+        };
         _inputer.Menu.LoadScene.performed += ctx =>
         {
             if (PhotonNetwork.IsMasterClient)
@@ -38,9 +48,9 @@ public class Player : Entity
             }
         };
     }
-    protected override void Update()
+    protected override void FixedUpdate()
     {
-        base.Update();
+        base.FixedUpdate();
         if (!photonView.IsMine) return;
         if (Mathf.Abs(rb.velocity.x) > _maxSpeed)
         {

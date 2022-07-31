@@ -20,7 +20,7 @@ public class Entity : MonoBehaviour, IDamageable, IPunObservable
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    protected virtual void Update()
+    protected virtual void FixedUpdate()
     {
         if (photonView.IsMine)
         {
