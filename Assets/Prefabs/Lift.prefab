@@ -213,9 +213,9 @@ MonoBehaviour:
   - {fileID: 7935342865968589740}
   - {fileID: 7935342866774569841}
   - {fileID: 7935342865771736704}
-  _isMoving: 1
+  _isMoving: 0
   _isLoop: 1
-  _speed: 5
+  _speed: 3
 --- !u!114 &7935342866524437281
 MonoBehaviour:
   m_ObjectHideFlags: 0

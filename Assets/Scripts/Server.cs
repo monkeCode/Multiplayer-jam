@@ -10,7 +10,8 @@ using UnityEngine.SceneManagement;
 public class Server : MonoBehaviourPunCallbacks
 {
     public static Server Instance { get; private set; }
-    private bool sceneLoaded;
+    private bool _sceneLoaded;
+    [SerializeField] private List<InventoryItem> _items;
     public override void OnConnectedToMaster()
     {
         Debug.Log("OnConnectedToMaster() was called by PUN.");
@@ -61,20 +62,24 @@ public class Server : MonoBehaviourPunCallbacks
 
     private void LoadLvl(string name)
     {
-        sceneLoaded = false;
+        _sceneLoaded = false;
         PhotonNetwork.LoadLevel(name);
-        sceneLoaded = true;
+        _sceneLoaded = true;
     }
     
     public IEnumerator MoveToGameScene(string nameScene)
     {
         PhotonNetwork.IsMessageQueueRunning = false;
         LoadLvl(nameScene);
-        while(sceneLoaded == false)
+        while(_sceneLoaded == false)
         {
             yield return null;
         }
         PhotonNetwork.IsMessageQueueRunning = true;
     }
-    
+
+    public InventoryItem GetItem(string itemName)
+    {
+        return _items.Find(x => x.ItemName == itemName);
+    }
 }

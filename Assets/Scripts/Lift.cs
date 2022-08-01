@@ -19,7 +19,6 @@ public class Lift : MonoBehaviour, IPunObservable, IToggle
     private PhotonView _photonView;
     private Rigidbody2D _rigidbody2D;
     private Vector2 _lastPosition;
-    private Vector2 _nextPosition;
     private Vector2 _velocity;
     public void Start()
     {
@@ -35,12 +34,13 @@ public class Lift : MonoBehaviour, IPunObservable, IToggle
         else _liftSequence.Pause();
     }
      
-    private void Update()
+    private void FixedUpdate()
     {
         if (_photonView.IsMine)
         {
-            _nextPosition = transform.position;
-            _velocity = (_nextPosition - _lastPosition) / Time.deltaTime;
+            
+            _velocity = ((Vector2)transform.position - _lastPosition) / Time.deltaTime;
+            _lastPosition = transform.position;
         }
         else
         {

@@ -1,56 +1,70 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
+
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(SpriteRenderer))]
 public class WorldItem : MonoBehaviourPun, IItem, IPunObservable
 {
+    
     private  Rigidbody2D rb;
     private SpriteRenderer sr;
+    private bool _canTake;
    [SerializeField] private InventoryItem _item;
-    void Start()
+   private IEnumerator Start()
     {
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
+        if (_item != null)
+            sr.sprite = _item.Sprite;
+        yield return new WaitForSeconds(0.5f);
+        _canTake = true;
+    }
+   [PunRPC]
+    public void SetItem(string itemName)
+    {
+        _item = Server.Instance.GetItem(itemName);
+        if(sr != null)
+            sr.sprite = _item.Sprite;
     }
     
-    
-    [PunRPC]
-    public InventoryItem Take()
-    {
-        return _item;
-        PhotonNetwork.Destroy(gameObject);
-    }
-    [PunRPC]
-    public void SetItem(InventoryItem item)
-    {
-        
-    }
-
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         //sync velocity rotation speed rotation and position
         if (stream.IsWriting)
         {
             stream.SendNext(rb.velocity);
-            stream.SendNext(rb.angularVelocity);
+            //stream.SendNext(rb.angularVelocity);
             stream.SendNext(transform.position);
-            stream.SendNext(transform.rotation);
+            //stream.SendNext(transform.rotation);
         }
         else
         {
-            rb.velocity = (Vector2)stream.ReceiveNext();
-            rb.angularVelocity = (float)stream.ReceiveNext();
-            transform.position = (Vector2)stream.ReceiveNext();
-            transform.rotation = (Quaternion)stream.ReceiveNext();
+            try
+            {
+                rb.velocity = (Vector2) stream.ReceiveNext();
+                //rb.angularVelocity = (float)stream.ReceiveNext();
+                transform.position = (Vector2) stream.ReceiveNext();
+                //transform.rotation = (Quaternion)stream.ReceiveNext();
+            }
+            catch (Exception)
+            {
+                // ignored
+            }
         }
         
     }
 
-    private void OnCollisionEnter2D(Collision2D col)
+    private void OnTriggerEnter2D(Collider2D col)
     {
-        
+        if(_canTake && photonView.IsMine && col.transform.TryGetComponent(out Player player))
+        {
+            if (player.Item != null) return;
+            player.GetComponent<PhotonView>().RPC(nameof(Player.SetItem), RpcTarget.All, _item.ItemName);
+            PhotonNetwork.Destroy(gameObject);
+            //Destroy(gameObject);
+        }
     }
+    
 }
