@@ -75,7 +75,13 @@ public class Player : Entity
        item.GetComponent<PhotonView>().RPC("SetItem", RpcTarget.All, _item.ItemName);
        item.GetComponent<Rigidbody2D>().velocity = force * 2;
        item.GetComponent<Rigidbody2D>().angularVelocity = Random.Range(-100, 100);
-       _item = null;
+       photonView.RPC(nameof(DeleteActiveItem), RpcTarget.All);
+    }
+
+    [PunRPC]
+    private void DeleteActiveItem()
+    {
+        _item = null;
     }
     [PunRPC]
     public void SetItem(string item)
