@@ -26,7 +26,7 @@ public class WorldItem : MonoBehaviourPun, IItem, IPunObservable
    [PunRPC]
     public void SetItem(string itemName)
     {
-        _item = Server.Instance.GetItem(itemHash);
+        _item = Server.Instance.GetItem(itemName);
         if(sr != null)
             sr.sprite = _item.Sprite;
     }

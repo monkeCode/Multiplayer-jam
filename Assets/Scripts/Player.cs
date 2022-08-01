@@ -72,7 +72,7 @@ public class Player : Entity
     private void DropItem(Vector2 force)
     {
        var item = PhotonNetwork.Instantiate("WorldItemPrefab", transform.position, Quaternion.identity);
-       item.GetComponent<PhotonView>().RPC("SetItem", RpcTarget.All, _item.GetHashCode());
+       item.GetComponent<PhotonView>().RPC("SetItem", RpcTarget.All, _item.ItemName);
        item.GetComponent<Rigidbody2D>().velocity = force * 2;
        item.GetComponent<Rigidbody2D>().angularVelocity = Random.Range(-100, 100);
        _item = null;
