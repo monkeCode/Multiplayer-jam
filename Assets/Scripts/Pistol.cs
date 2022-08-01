@@ -16,7 +16,7 @@ public class Pistol : InventoryItem
         if (_cantShoot || !player.GetComponent<PhotonView>().IsMine) return;
         _cantShoot = true;
         var mousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue()) - player.transform.position;
-        Shoot(player.transform.position, mousePos );
+        Shoot(player.transform.position, mousePos.normalized );
         Reload();
     }
 

@@ -33,7 +33,7 @@ public class Player : Entity
             {
                 var force = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue()) - transform.position;
                 //photonView.RPC(nameof(DropItem), RpcTarget.All, (Vector2)force);
-                DropItem(force);
+                DropItem(force.normalized);
             }
         };
         _inputer.Player.ItemShoot.performed += context =>
