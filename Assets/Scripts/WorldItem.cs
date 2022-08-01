@@ -60,12 +60,13 @@ public class WorldItem : MonoBehaviourPun, IItem, IPunObservable
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if(_canTake && col.transform.TryGetComponent(out Player player))
+        if(_canTake && photonView.IsMine && col.transform.TryGetComponent(out Player player))
         {
             if (player.Item != null) return;
-            player.SetItem(_item);
+            player.GetComponent<PhotonView>().RPC(nameof(Player.SetItem), RpcTarget.All, _item.ItemName);
             PhotonNetwork.Destroy(gameObject);
             //Destroy(gameObject);
         }
     }
+    
 }

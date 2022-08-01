@@ -78,11 +78,12 @@ public class Player : Entity
        _item = null;
     }
     [PunRPC]
-    public void SetItem(InventoryItem item)
+    public void SetItem(string item)
     {
         if (_item != null) return;
         Debug.Log($"{photonView.Owner.UserId} set item {item}");
-        _item = item;
+        
+        _item = Server.Instance.GetItem(item);
     }
     private void UpdateMoveDirection(float dir)
     {
