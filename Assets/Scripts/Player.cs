@@ -157,7 +157,7 @@ public class Player : Entity
             }
             catch (Exception e)
             {
-                Debug.LogError(e);
+                //Debug.LogError(e);
             }
             
         }
