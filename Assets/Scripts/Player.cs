@@ -9,17 +9,27 @@ using UnityEngine.InputSystem;
 
 public class Player : Entity
 {
+    enum PlayerState
+    {
+        Idle, Run, Jump, Fall, Hit
+    }
     [SerializeField] private float _jumpForce;
     [SerializeField] private float _fallMultiplier = 2.5f;
     [SerializeField] private float _lowJumpMultiplier = 2f;
     [SerializeField] private float _maxSpeed;
     [SerializeField] private InventoryItem _item;
+    [SerializeField] private PlayerState _playerState { 
+        get => (PlayerState) _animator.GetInteger("State"); 
+        set => _animator.SetInteger("State", (int)value); }
     public InventoryItem Item => _item;
     private bool _isJump;
     private Inputer _inputer;
+    private Animator _animator;
     protected override void Start()
     {
         base.Start();
+        _animator = GetComponent<Animator>();
+        _playerState = _playerState;
         DontDestroyOnLoad(gameObject);
         _inputer = new Inputer();
         _inputer.Enable();
@@ -68,6 +78,23 @@ public class Player : Entity
             rb.velocity += Vector2.up * (Physics2D.gravity.y * (_lowJumpMultiplier - 1) * Time.deltaTime);
     }
 
+    protected override void Update()
+    {
+        base.Update();
+        if (_playerState == PlayerState.Jump)
+        {
+            if (rb.velocity.y < 0.1f)
+                _playerState = PlayerState.Fall;
+        }
+        else if (_playerState == PlayerState.Fall && isGrounded)
+        {
+            _playerState = PlayerState.Idle;
+        }
+
+        spriteRenderer.flipX = rb.velocity.x < 0;
+
+    }
+
     [PunRPC]
     private void DropItem(Vector2 force)
     {
@@ -96,6 +123,10 @@ public class Player : Entity
         if (photonView.IsMine)
         {
             moveDirection = dir;
+            if(_playerState == PlayerState.Idle && dir != 0)
+                _playerState = PlayerState.Run;
+            else if(_playerState == PlayerState.Run && dir == 0)
+                _playerState = PlayerState.Idle;
         }
     }
 
@@ -105,6 +136,21 @@ public class Player : Entity
         {
             _isJump = true;
             rb.velocity = Vector2.up * _jumpForce;
+            _playerState = PlayerState.Jump;
+        }
+    }
+
+    public override void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        base.OnPhotonSerializeView(stream, info);
+        //sync state
+        if (stream.IsWriting)
+        {
+            stream.SendNext((int)_playerState);
+        }
+        else
+        {
+            _playerState = (PlayerState)stream.ReceiveNext();
         }
     }
 }

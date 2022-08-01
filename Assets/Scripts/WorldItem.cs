@@ -1,7 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using ExitGames.Client.Photon.StructWrapping;
 using Photon.Pun;
 using UnityEngine;
 
@@ -9,11 +7,11 @@ using UnityEngine;
 [RequireComponent(typeof(SpriteRenderer))]
 public class WorldItem : MonoBehaviourPun, IItem, IPunObservable
 {
+    
     private  Rigidbody2D rb;
     private SpriteRenderer sr;
     private bool _canTake;
    [SerializeField] private InventoryItem _item;
-
    private IEnumerator Start()
     {
         rb = GetComponent<Rigidbody2D>();
