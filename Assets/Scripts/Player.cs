@@ -5,6 +5,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Player : Entity
 {
@@ -28,12 +29,16 @@ public class Player : Entity
         _inputer.Player.Jump.canceled += ctx => _isJump = false;
         _inputer.Player.Drop.performed += context =>
         {
-            photonView.RPC(nameof(DropItem), RpcTarget.All);
+            if (_item != null && photonView.IsMine)
+            {
+                var force = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue()) - transform.position;
+                photonView.RPC(nameof(DropItem), RpcTarget.All, (Vector2)force);
+            }
         };
         _inputer.Player.ItemShoot.performed += context =>
         {
             if (_item != null && photonView.IsMine)
-                _item.Use();
+                _item.Use(this);
         };
         _inputer.Player.ItemShoot.canceled += context =>
         {
@@ -63,10 +68,12 @@ public class Player : Entity
     }
 
     [PunRPC]
-    private void DropItem()
+    private void DropItem(Vector2 force)
     {
        var item = PhotonNetwork.Instantiate("WorldItemPrefab", transform.position, Quaternion.identity);
-         item.GetComponent<WorldItem>().photonView.RPC("SetItem", RpcTarget.All, _item);
+       item.GetComponent<WorldItem>().SetItem(_item);
+       item.GetComponent<Rigidbody2D>().AddForce(force.normalized);
+        _item = null;
     }
     [PunRPC]
     public void SetItem(InventoryItem item)

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3745069593020596982}
   - component: {fileID: 3745069593020596981}
   - component: {fileID: 6421362941355204436}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -149,7 +149,7 @@ MonoBehaviour:
   _fallMultiplier: 4
   _lowJumpMultiplier: 3
   _maxSpeed: 8
-  _item: {fileID: 11400000, guid: 73b2192d85a140e49a22756b72cfcabd, type: 2}
+  _item: {fileID: 0}
 --- !u!70 &6421362941355204436
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

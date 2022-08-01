@@ -24,11 +24,11 @@ public class WorldItem : MonoBehaviourPun, IItem, IPunObservable
         _canTake = true;
     }
    
-   [PunRPC]
     public void SetItem(InventoryItem item)
     {
         _item = item;
-        sr.sprite = item.Sprite;
+        if(sr != null)
+            sr.sprite = item.Sprite;
     }
     
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
@@ -51,14 +51,14 @@ public class WorldItem : MonoBehaviourPun, IItem, IPunObservable
         
     }
 
-    private void OnCollisionEnter2D(Collision2D col)
+    private void OnTriggerEnter2D(Collider2D col)
     {
         if(_canTake && col.transform.TryGetComponent(out Player player))
         {
             if (player.Item != null) return;
             player.SetItem(_item);
             PhotonNetwork.Destroy(gameObject);
-            Destroy(gameObject);
+            //Destroy(gameObject);
         }
     }
 }

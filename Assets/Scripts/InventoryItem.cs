@@ -11,12 +11,12 @@ public class InventoryItem : ScriptableObject
     [SerializeField] private Sprite _sprite;
     public Sprite Sprite => _sprite;
     public string ItemName => _itemName;
-    [PunRPC]
-    public virtual void Use()
+    
+    public virtual void Use(Player player)
     {
         Debug.Log("Using " + _itemName);
     }
-    [PunRPC]
+    
     public virtual void CanselUse()
     {
         Debug.Log("Cansel using " + _itemName);
