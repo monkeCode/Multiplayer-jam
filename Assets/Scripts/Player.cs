@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
@@ -91,7 +92,7 @@ public class Player : Entity
             _playerState = PlayerState.Idle;
         }
 
-        spriteRenderer.flipX = rb.velocity.x < 0;
+        spriteRenderer.flipX = rb.velocity.x < 0.1f;
 
     }
 
@@ -150,7 +151,15 @@ public class Player : Entity
         }
         else
         {
-            _playerState = (PlayerState)stream.ReceiveNext();
+            try
+            {
+                _playerState = (PlayerState)stream.ReceiveNext();
+            }
+            catch (Exception e)
+            {
+                Debug.LogError(e);
+            }
+            
         }
     }
 }
