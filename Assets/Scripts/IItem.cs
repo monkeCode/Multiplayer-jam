@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IItem
 {
-    public void SetItem(InventoryItem item);
+    public void SetItem(int item);
 }

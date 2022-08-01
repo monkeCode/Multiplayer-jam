@@ -913,6 +913,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2853868679427521070, guid: 45ea3734dd148024b93cc99194e4b978, type: 3}
+      propertyPath: _items.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2853868679427521070, guid: 45ea3734dd148024b93cc99194e4b978, type: 3}
+      propertyPath: _items.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 5b30931c0ec1f8144b1f2dbdf7034609, type: 2}
+    - target: {fileID: 2853868679427521070, guid: 45ea3734dd148024b93cc99194e4b978, type: 3}
+      propertyPath: _items.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 73b2192d85a140e49a22756b72cfcabd, type: 2}
     - target: {fileID: 2853868679427521071, guid: 45ea3734dd148024b93cc99194e4b978, type: 3}
       propertyPath: m_Name
       value: Server

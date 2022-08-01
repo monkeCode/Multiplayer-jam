@@ -11,6 +11,7 @@ public class Server : MonoBehaviourPunCallbacks
 {
     public static Server Instance { get; private set; }
     private bool _sceneLoaded;
+    [SerializeField] private List<InventoryItem> _items;
     public override void OnConnectedToMaster()
     {
         Debug.Log("OnConnectedToMaster() was called by PUN.");
@@ -76,5 +77,9 @@ public class Server : MonoBehaviourPunCallbacks
         }
         PhotonNetwork.IsMessageQueueRunning = true;
     }
-    
+
+    public InventoryItem GetItem(int itemHash)
+    {
+        return _items.Find(x => x.GetHashCode() == itemHash);
+    }
 }

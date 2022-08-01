@@ -18,17 +18,17 @@ public class WorldItem : MonoBehaviourPun, IItem, IPunObservable
     {
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
-        if(_item != null)
-            SetItem(_item);
+        if (_item != null)
+            sr.sprite = _item.Sprite;
         yield return new WaitForSeconds(1f);
         _canTake = true;
     }
-   
-    public void SetItem(InventoryItem item)
+   [PunRPC]
+    public void SetItem(int itemHash)
     {
-        _item = item;
+        _item = Server.Instance.GetItem(itemHash);
         if(sr != null)
-            sr.sprite = item.Sprite;
+            sr.sprite = _item.Sprite;
     }
     
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
