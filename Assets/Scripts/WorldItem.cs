@@ -20,7 +20,7 @@ public class WorldItem : MonoBehaviourPun, IItem, IPunObservable
         sr = GetComponent<SpriteRenderer>();
         if (_item != null)
             sr.sprite = _item.Sprite;
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
         _canTake = true;
     }
    [PunRPC]
