@@ -145,6 +145,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 100
+  _groundLayer:
+    serializedVersion: 2
+    m_Bits: 385
   _jumpForce: 10
   _fallMultiplier: 4
   _lowJumpMultiplier: 3

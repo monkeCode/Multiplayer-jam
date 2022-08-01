@@ -9,16 +9,19 @@ using UnityEngine;
 public class Entity : MonoBehaviour, IDamageable, IPunObservable
 {
     [SerializeField]protected float speed;
+    [SerializeField] private LayerMask _groundLayer;
     protected Rigidbody2D rb;
     protected float moveDirection;
     protected PhotonView photonView;
     protected SpriteRenderer spriteRenderer;
-    
+    protected Collider2D collider2D;
+    protected bool isGrounded { get; private set; }
     protected virtual void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         photonView = GetComponent<PhotonView>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        collider2D = GetComponent<Collider2D>();
     }
 
     protected virtual void FixedUpdate()
@@ -27,6 +30,11 @@ public class Entity : MonoBehaviour, IDamageable, IPunObservable
         {
             Move(moveDirection);
         }
+    }
+
+    protected virtual void Update()
+    {
+        isGrounded = OnGround();
     }
 
     protected virtual void Move(float xMove)
@@ -41,7 +49,11 @@ public class Entity : MonoBehaviour, IDamageable, IPunObservable
 
    protected bool OnGround()
    {
-       return true;
+       var point = collider2D.bounds.center - new Vector3(0, collider2D.bounds.extents.y, 0);
+       var hits = Physics2D.RaycastAll(point, Vector2.down, 0.1f, _groundLayer);
+       var index= Array.FindIndex(hits, hit2D => hit2D.collider?.gameObject != gameObject);
+       Debug.DrawRay(point, Vector2.down * 0.1f, Color.red);
+       return index != -1;
    }
     public virtual void Heal(int heal)
     {

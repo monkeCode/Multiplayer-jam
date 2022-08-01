@@ -101,7 +101,7 @@ public class Player : Entity
 
     private void Jump()
     {
-        if (photonView.IsMine && OnGround())
+        if (photonView.IsMine && isGrounded)
         {
             _isJump = true;
             rb.velocity = Vector2.up * _jumpForce;
