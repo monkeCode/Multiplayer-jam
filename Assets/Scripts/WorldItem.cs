@@ -24,7 +24,7 @@ public class WorldItem : MonoBehaviourPun, IItem, IPunObservable
         _canTake = true;
     }
    [PunRPC]
-    public void SetItem(int itemHash)
+    public void SetItem(string itemName)
     {
         _item = Server.Instance.GetItem(itemHash);
         if(sr != null)

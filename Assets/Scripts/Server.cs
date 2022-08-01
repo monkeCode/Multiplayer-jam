@@ -78,8 +78,8 @@ public class Server : MonoBehaviourPunCallbacks
         PhotonNetwork.IsMessageQueueRunning = true;
     }
 
-    public InventoryItem GetItem(int itemHash)
+    public InventoryItem GetItem(string itemName)
     {
-        return _items.Find(x => x.GetHashCode() == itemHash);
+        return _items.Find(x => x.ItemName == itemName);
     }
 }
