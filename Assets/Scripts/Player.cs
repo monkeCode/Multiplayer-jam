@@ -73,7 +73,7 @@ public class Player : Entity
     {
        var item = PhotonNetwork.Instantiate("WorldItemPrefab", transform.position, Quaternion.identity);
        item.GetComponent<WorldItem>().SetItem(_item);
-       item.GetComponent<Rigidbody2D>().AddForce(force.normalized * 50);
+       item.GetComponent<Rigidbody2D>().velocity = force * 10;
         _item = null;
     }
     [PunRPC]
