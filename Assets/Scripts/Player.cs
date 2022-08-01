@@ -73,8 +73,9 @@ public class Player : Entity
     {
        var item = PhotonNetwork.Instantiate("WorldItemPrefab", transform.position, Quaternion.identity);
        item.GetComponent<WorldItem>().SetItem(_item);
-       item.GetComponent<Rigidbody2D>().velocity = force * 10;
-        _item = null;
+       item.GetComponent<Rigidbody2D>().velocity = force * 2;
+       item.GetComponent<Rigidbody2D>().angularVelocity = Random.Range(-100, 100);
+       _item = null;
     }
     [PunRPC]
     public void SetItem(InventoryItem item)
