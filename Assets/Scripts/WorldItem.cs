@@ -43,10 +43,17 @@ public class WorldItem : MonoBehaviourPun, IItem, IPunObservable
         }
         else
         {
-            rb.velocity = (Vector2)stream.ReceiveNext();
-            //rb.angularVelocity = (float)stream.ReceiveNext();
-            transform.position = (Vector2)stream.ReceiveNext();
-            //transform.rotation = (Quaternion)stream.ReceiveNext();
+            try
+            {
+                rb.velocity = (Vector2) stream.ReceiveNext();
+                //rb.angularVelocity = (float)stream.ReceiveNext();
+                transform.position = (Vector2) stream.ReceiveNext();
+                //transform.rotation = (Quaternion)stream.ReceiveNext();
+            }
+            catch (Exception)
+            {
+                // ignored
+            }
         }
         
     }
