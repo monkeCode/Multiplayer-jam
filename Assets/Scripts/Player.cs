@@ -82,16 +82,13 @@ public class Player : Entity
     protected override void Update()
     {
         base.Update();
-        if (_playerState == PlayerState.Jump)
-        {
+        
             if (rb.velocity.y < 0.1f)
                 _playerState = PlayerState.Fall;
-        }
-        else if (_playerState == PlayerState.Fall && isGrounded)
+        if (_playerState == PlayerState.Fall && isGrounded)
         {
-            _playerState = PlayerState.Idle;
+            _playerState = moveDirection ==0 ? PlayerState.Idle : PlayerState.Run;
         }
-
         spriteRenderer.flipX = rb.velocity.x < 0.1f;
 
     }
