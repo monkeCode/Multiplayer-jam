@@ -16,7 +16,7 @@ public class Fan : MonoBehaviour,IToggle
     void Start()
     {
         _animator = GetComponent<Animator>();
-        _animator.SetBool(On, _isOn);
+        Toggle(_isOn);
     }
 
     // Update is called once per frame
