@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
@@ -61,8 +62,16 @@ public class Entity : MonoBehaviour, IDamageable, IPunObservable
         }
         else
         {
-            rb.velocity = (Vector2)stream.ReceiveNext();
-            transform.position = (Vector3)stream.ReceiveNext();
+            try
+            {
+                rb.velocity = (Vector2)stream.ReceiveNext();
+                transform.position = (Vector3)stream.ReceiveNext();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+           
         }
         
     }
