@@ -10,6 +10,7 @@ using Task = System.Threading.Tasks.Task;
 public class Pistol : InventoryItem
 {
     [SerializeField] private float shootDelay;
+    [SerializeField] private float _bulletSpeed;
     private bool _cantShoot;
     public override void Use(Player player)
     {
@@ -23,7 +24,7 @@ public class Pistol : InventoryItem
     private void Shoot(Vector2 pos, Vector2 dir)
     {
         var bullet = PhotonNetwork.Instantiate("Bullet", pos, Quaternion.identity);
-        bullet.GetComponent<Rigidbody2D>().velocity = dir;
+        bullet.GetComponent<Rigidbody2D>().velocity = dir * _bulletSpeed;
 
     }
     private async void Reload()
