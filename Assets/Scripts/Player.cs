@@ -32,7 +32,8 @@ public class Player : Entity
             if (_item != null && photonView.IsMine)
             {
                 var force = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue()) - transform.position;
-                photonView.RPC(nameof(DropItem), RpcTarget.All, (Vector2)force);
+                //photonView.RPC(nameof(DropItem), RpcTarget.All, (Vector2)force);
+                DropItem(force);
             }
         };
         _inputer.Player.ItemShoot.performed += context =>
@@ -72,7 +73,7 @@ public class Player : Entity
     {
        var item = PhotonNetwork.Instantiate("WorldItemPrefab", transform.position, Quaternion.identity);
        item.GetComponent<WorldItem>().SetItem(_item);
-       item.GetComponent<Rigidbody2D>().AddForce(force.normalized);
+       item.GetComponent<Rigidbody2D>().AddForce(force.normalized * 50);
         _item = null;
     }
     [PunRPC]
