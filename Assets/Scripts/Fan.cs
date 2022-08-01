@@ -6,11 +6,17 @@ public class Fan : MonoBehaviour,IToggle
 {
     List<Rigidbody2D> _rigidbodies = new();
     [SerializeField] [Range(-7, 7)] float _force;
+    [SerializeField] private  bool _isOn;
+
+    private Animator _animator;
+
+    private static readonly int On = Animator.StringToHash("On");
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        _animator = GetComponent<Animator>();
+        _animator.SetBool(On, _isOn);
     }
 
     // Update is called once per frame
@@ -40,9 +46,13 @@ public class Fan : MonoBehaviour,IToggle
         {
             GetComponent<ParticleSystem>().Play();
             GetComponent<Collider2D>().enabled = true;
+            _animator.SetBool(On, true);
+            _isOn = true;
             return;
         }
         GetComponent<Collider2D>().enabled = false;
         GetComponent<ParticleSystem>().Stop();
+        _animator.SetBool(On, false);
+        _isOn = false;
     }
 }
