@@ -48,7 +48,9 @@ public class Entity : MonoBehaviour, IDamageable, IPunObservable
 
     public virtual void TakeDamage(int damage)
     {
-        //Kill();
+        if(_currentHealth<=0) return;
+        _currentHealth -= damage;
+        photonView.RPC(nameof(UpdateHealth), RpcTarget.All, _currentHealth);
     }
     [PunRPC]
     //update hp on all clients and die if hp is 0
