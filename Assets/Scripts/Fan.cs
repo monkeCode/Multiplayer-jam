@@ -2,9 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Photon.Pun;
 using UnityEngine;
 
-public class Fan : MonoBehaviour,IToggle
+public class Fan : MonoBehaviour,IToggle, IPunObservable
 {
     List<Rigidbody2D> _rigidbodies = new();
     [SerializeField] [Range(-7, 7)] float _force;
@@ -57,5 +58,18 @@ public class Fan : MonoBehaviour,IToggle
         GetComponent<ParticleSystem>().Stop();
         _animator.SetBool(On, false);
         _isOn = false;
+    }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            stream.SendNext(_isOn);
+        }
+        else
+        {
+            _isOn = (bool)stream.ReceiveNext();
+            Toggle(_isOn);
+        }
     }
 }

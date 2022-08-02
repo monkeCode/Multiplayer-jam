@@ -63,7 +63,10 @@ public class Player : Entity
         {
             if (PhotonNetwork.IsMasterClient)
             {
-                StartCoroutine(Server.Instance.MoveToGameScene("SampleScene"));
+                //StartCoroutine(Server.Instance.MoveToGameScene("SampleScene"));
+                Vector2 force = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue()) - transform.position;
+                var witem = PhotonNetwork.Instantiate("WorldItemPrefab", force, Quaternion.identity);
+                witem.GetComponent<PhotonView>().RPC("SetItem", RpcTarget.All, "Pistol");
             }
         };
     }
