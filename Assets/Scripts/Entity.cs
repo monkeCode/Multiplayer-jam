@@ -3,13 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
+using UnityEngine.Serialization;
+
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(PhotonView))]
 [RequireComponent(typeof(SpriteRenderer))]
 public class Entity : MonoBehaviour, IDamageable, IPunObservable
 {
     [SerializeField]protected float speed;
-    [SerializeField] private LayerMask _groundLayer;
+    [FormerlySerializedAs("_groundLayer")] [SerializeField] protected LayerMask groundLayer;
+    [SerializeField] private int _maxHealth;
+    [SerializeField] private int _currentHealth;
     protected Rigidbody2D rb;
     protected float moveDirection;
     protected PhotonView photonView;
@@ -44,13 +48,22 @@ public class Entity : MonoBehaviour, IDamageable, IPunObservable
 
     public virtual void TakeDamage(int damage)
     {
-        Kill();
+        //Kill();
     }
-
+    [PunRPC]
+    //update hp on all clients and die if hp is 0
+    public virtual void UpdateHealth(int health)
+    {
+        _currentHealth = health;
+        if (_currentHealth <= 0)
+        {
+            Die();
+        }
+    }
    protected bool OnGround()
    {
        var point = collider2D.bounds.center - new Vector3(0, collider2D.bounds.extents.y, 0);
-       var hits = Physics2D.RaycastAll(point, Vector2.down, 0.1f, _groundLayer);
+       var hits = Physics2D.RaycastAll(point, Vector2.down, 0.1f, groundLayer);
        var index= Array.FindIndex(hits, hit2D => hit2D.collider?.gameObject != gameObject);
        Debug.DrawRay(point, Vector2.down * 0.1f, Color.red);
        return index != -1;
@@ -62,9 +75,18 @@ public class Entity : MonoBehaviour, IDamageable, IPunObservable
 
     public virtual void Kill()
     {
-        Destroy(gameObject);
+        if (photonView.IsMine)
+        {
+            photonView.RPC(nameof(UpdateHealth), RpcTarget.All, 0);
+        }
+            
     }
 
+    protected virtual void Die()
+    {
+        if(photonView.IsMine)
+            PhotonNetwork.Destroy(gameObject);
+    }
     public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         if (stream.IsWriting)

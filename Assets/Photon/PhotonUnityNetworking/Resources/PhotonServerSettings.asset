@@ -51,6 +51,9 @@ MonoBehaviour:
   - Use
   - Destroying
   - DeleteActiveItem
+  - Dest
+  - UpdateHp
+  - UpdateHealth
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

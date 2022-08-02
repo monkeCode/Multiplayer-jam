@@ -146,14 +146,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 100
-  _groundLayer:
+  groundLayer:
     serializedVersion: 2
-    m_Bits: 385
+    m_Bits: 897
+  _maxHealth: 2
+  _currentHealth: 2
   _jumpForce: 10
   _fallMultiplier: 4
   _lowJumpMultiplier: 3
   _maxSpeed: 8
   _item: {fileID: 0}
+  _wallLayer:
+    serializedVersion: 2
+    m_Bits: 129
 --- !u!70 &6421362941355204436
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
