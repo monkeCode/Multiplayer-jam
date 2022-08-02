@@ -9,7 +9,6 @@ public class Destroyable : MonoBehaviourPun, IDamageable
     [SerializeField] private int _currentHealth;
     public void TakeDamage(int damage)
     {
-        if(!photonView.IsMine) return;
         if (_currentHealth <= 0) return;
         _currentHealth -= damage;
         photonView.RPC(nameof(UpdateHp), RpcTarget.All, _currentHealth);
