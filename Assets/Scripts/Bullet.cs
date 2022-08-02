@@ -38,8 +38,15 @@ public class Bullet : MonoBehaviourPun, IPunObservable
         {
             Vector2 syncPos = (Vector2)stream.ReceiveNext();
             Vector2 syncVel = (Vector2)stream.ReceiveNext();
-            _rigidbody2D.position = syncPos;
-            _rigidbody2D.velocity = syncVel;
+            try
+            {
+                _rigidbody2D.position = syncPos;
+                _rigidbody2D.velocity = syncVel;
+            }
+            catch (Exception)
+            {
+                // ignored
+            }
         }
     }
 
