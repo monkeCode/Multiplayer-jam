@@ -28,8 +28,8 @@ public class Pistol : InventoryItem
     private void Shoot(Component player)
     {
         var bullet = PhotonNetwork.Instantiate("Bullet", player.transform.position, Quaternion.identity);
-        var mousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue()) - player.transform.position;
-        bullet.GetComponent<Rigidbody2D>().velocity = mousePos.normalized * _bulletSpeed;
+        Vector2 force = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue()) - player.transform.position;
+        bullet.GetComponent<Rigidbody2D>().velocity = force.normalized * _bulletSpeed;
         bullet.GetComponent<Bullet>().SetCaster(player.gameObject);
 
     }

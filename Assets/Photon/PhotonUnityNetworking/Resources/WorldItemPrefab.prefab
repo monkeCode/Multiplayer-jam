@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1844028468202319495}
   - component: {fileID: 1844028468202319494}
   - component: {fileID: 1844028468202319491}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: WorldItemPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -172,7 +172,7 @@ GameObject:
   m_Component:
   - component: {fileID: 90278268987038618}
   - component: {fileID: 6737872542525403812}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}

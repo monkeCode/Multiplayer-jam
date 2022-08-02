@@ -91,7 +91,7 @@ public class Player : Entity
         {
             _playerState = moveDirection ==0 ? PlayerState.Idle : PlayerState.Run;
         }
-        spriteRenderer.flipX = rb.velocity.x < 0.1f;
+        spriteRenderer.flipX = rb.velocity.x < 0.2f;
 
     }
 

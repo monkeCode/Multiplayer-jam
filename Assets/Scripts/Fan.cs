@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Fan : MonoBehaviour,IToggle
@@ -22,6 +24,7 @@ public class Fan : MonoBehaviour,IToggle
     // Update is called once per frame
     void Update()
     {
+        _rigidbodies = _rigidbodies.Where(it => it != null).ToList();
         foreach (var rb in _rigidbodies)
         {
             rb.AddForce(new Vector2(Mathf.Cos((transform.eulerAngles.z +90) * Mathf.Deg2Rad), Mathf.Sin((transform.eulerAngles.z +90) * Mathf.Deg2Rad) * _force));

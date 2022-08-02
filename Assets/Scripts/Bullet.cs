@@ -7,11 +7,13 @@ using UnityEngine;
 public class Bullet : MonoBehaviourPun, IPunObservable
 {
     [SerializeField] private int _dmg;
+    [SerializeField] private float _timeToDestroy;
     private Rigidbody2D _rigidbody2D;
     private GameObject _caster;
     private void Start()
     {
         _rigidbody2D = GetComponent<Rigidbody2D>();
+        Destroy(gameObject, _timeToDestroy);
         
     }
 
@@ -49,6 +51,7 @@ public class Bullet : MonoBehaviourPun, IPunObservable
         {
             damageable.TakeDamage(_dmg);
         }
+        if(col.CompareTag("BulletIgnore")) return;
         PhotonNetwork.Destroy(gameObject);
     }
     
