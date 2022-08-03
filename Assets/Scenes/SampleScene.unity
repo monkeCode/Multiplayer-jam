@@ -2551,6 +2551,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -3123103312157226076, guid: c6f2ba5b0b46b974582e4ab7a4c06385, type: 3}
+      propertyPath: _isOn
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -1969806153902798097, guid: c6f2ba5b0b46b974582e4ab7a4c06385, type: 3}
       propertyPath: sceneViewId
       value: 22
@@ -2828,6 +2832,10 @@ PrefabInstance:
       propertyPath: _points.Array.data[1]
       value: 
       objectReference: {fileID: 1974606549}
+    - target: {fileID: 7935342866524437309, guid: e382703cb3eae2040b81efd4ad727a5e, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: f4f7d4468031de640bf588234f25b01a, type: 2}
     - target: {fileID: 7935342866524437311, guid: e382703cb3eae2040b81efd4ad727a5e, type: 3}
       propertyPath: m_LocalScale.x
       value: 3

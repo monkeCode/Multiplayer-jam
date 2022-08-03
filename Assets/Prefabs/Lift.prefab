@@ -129,7 +129,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 7935342866524437310}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: f4f7d4468031de640bf588234f25b01a, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -182,7 +182,6 @@ MonoBehaviour:
   _points:
   - {fileID: 7935342865968589740}
   - {fileID: 7935342866774569841}
-  - {fileID: 0}
   _isMoving: 0
   _isLoop: 1
   _speed: 3
