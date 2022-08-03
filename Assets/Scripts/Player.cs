@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Cinemachine;
 using Photon.Pun;
 using Photon.Realtime;
@@ -19,6 +20,7 @@ public class Player : Entity
     [SerializeField] private float _lowJumpMultiplier = 2f;
     [SerializeField] private float _maxSpeed;
     [SerializeField] private InventoryItem _item;
+    [SerializeField] private LayerMask _wallLayer;
     [SerializeField] private PlayerState _playerState { 
         get => (PlayerState) _animator.GetInteger("State"); 
         set => _animator.SetInteger("State", (int)value); }
@@ -61,7 +63,10 @@ public class Player : Entity
         {
             if (PhotonNetwork.IsMasterClient)
             {
-                StartCoroutine(Server.Instance.MoveToGameScene("SampleScene"));
+                //StartCoroutine(Server.Instance.MoveToGameScene("SampleScene"));
+                Vector2 force = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue()) - transform.position;
+                var witem = PhotonNetwork.Instantiate("WorldItemPrefab", force, Quaternion.identity);
+                witem.GetComponent<PhotonView>().RPC("SetItem", RpcTarget.All, "Pistol");
             }
         };
     }
@@ -89,7 +94,7 @@ public class Player : Entity
         {
             _playerState = moveDirection ==0 ? PlayerState.Idle : PlayerState.Run;
         }
-        spriteRenderer.flipX = rb.velocity.x < 0.1f;
+        spriteRenderer.flipX = rb.velocity.x < 0.2f;
 
     }
 
@@ -130,14 +135,34 @@ public class Player : Entity
 
     private void Jump()
     {
-        if (photonView.IsMine && isGrounded)
+        if (photonView.IsMine)
         {
+            var wall = OnWall();
+            if (!isGrounded && wall == 0 ) return;
             _isJump = true;
             rb.velocity = Vector2.up * _jumpForce;
+            rb.velocity += Vector2.right * -wall * _jumpForce;
             _playerState = PlayerState.Jump;
         }
     }
 
+    private int OnWall()
+    {
+        if(isGrounded) return 0;
+        //cast two ray from collider bounds to detect wall
+        var colliderBounds = collider2D.bounds;
+        var leftRay = new Ray(colliderBounds.center - new Vector3(colliderBounds.extents.x, 0, 0), Vector3.left);
+        var rightRay = new Ray(colliderBounds.center + new Vector3(colliderBounds.extents.x, 0, 0), Vector3.right);
+        var leftHit = Physics2D.Raycast(leftRay.origin, leftRay.direction,  0.1f, _wallLayer);
+        var rightHit = Physics2D.Raycast(rightRay.origin, rightRay.direction, 0.1f, _wallLayer);
+        //draw debug rays
+        Debug.DrawRay(leftRay.origin, leftRay.direction * (colliderBounds.extents.x + 0.1f), Color.red);
+        Debug.DrawRay(rightRay.origin, rightRay.direction * (colliderBounds.extents.x + 0.1f), Color.red);
+        //return left or right wall
+        if (leftHit.collider != null)
+            return -1;
+        return rightHit.collider!=null ? 1 : 0;
+    }
     public override void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         base.OnPhotonSerializeView(stream, info);

@@ -80,6 +80,6 @@ public class Server : MonoBehaviourPunCallbacks
 
     public InventoryItem GetItem(string itemName)
     {
-        return _items.Find(x => x.ItemName == itemName);
+        return Instantiate(_items.Find(x => x.ItemName == itemName));
     }
 }
