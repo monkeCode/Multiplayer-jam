@@ -59,7 +59,7 @@ public class Lift : MonoBehaviour, IPunObservable, IToggle
         for (int i = 1; i < _points.Count; i++)
         {
             _liftSequence.Append(_rigidbody2D.
-                DOMove(_points[i].position, Vector2.Distance(_points[i-1].position, _points[i].position)/_speed).SetEase(Ease.Linear));
+                DOMove(_points[i].position, Vector2.Distance(_points[i-1].position, _points[i].position)/_speed).SetEase(Ease.InOutQuad));
         }
         _liftSequence.onComplete += () =>
         {
@@ -74,7 +74,7 @@ public class Lift : MonoBehaviour, IPunObservable, IToggle
         _liftSequence = DOTween.Sequence();
         for(int i = _points.Count-2; i >= 0; i--)
         {
-            _liftSequence.Append(_rigidbody2D.DOMove(_points[i].position, Vector2.Distance(_points[i+1].position, _points[i].position)/_speed).SetEase(Ease.Linear));
+            _liftSequence.Append(_rigidbody2D.DOMove(_points[i].position, Vector2.Distance(_points[i+1].position, _points[i].position)/_speed).SetEase(Ease.InOutQuad));
         }
         _liftSequence.onComplete += () =>
         {
