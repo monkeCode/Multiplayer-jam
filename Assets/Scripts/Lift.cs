@@ -97,17 +97,17 @@ public class Lift : MonoBehaviour, IPunObservable, IToggle
         //sync transform and rigidbody
         if (stream.IsWriting)
         {
-            stream.SendNext(transform.position);
-            stream.SendNext(transform.rotation);
-            stream.SendNext(_velocity);
+            //stream.SendNext(transform.position);
+           // stream.SendNext(transform.rotation);
+            //stream.SendNext(_velocity);
             stream.SendNext(_isMoving);
             
         }
         else
         {
-            transform.position = (Vector3) stream.ReceiveNext();
-            transform.rotation = (Quaternion) stream.ReceiveNext();
-            _velocity = (Vector2) stream.ReceiveNext();
+            //transform.position = (Vector3) stream.ReceiveNext();
+            //transform.rotation = (Quaternion) stream.ReceiveNext();
+            //_velocity = (Vector2) stream.ReceiveNext();
             _isMoving = (bool) stream.ReceiveNext();
             _animator.SetBool("IsOn", _isMoving);
         }
