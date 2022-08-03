@@ -117,4 +117,17 @@ public class Lift : MonoBehaviour, IPunObservable, IToggle
     {
         ChangeState(isOn);
     }
+
+    private void OnCollisionEnter2D(Collision2D col)
+    {
+        col.transform.SetParent(this.transform);
+    }
+
+    private void OnCollisionExit2D(Collision2D other)
+    {
+        if (other.transform.parent == gameObject.transform)
+        {
+            other.transform.SetParent(null);
+        }
+    }
 }
