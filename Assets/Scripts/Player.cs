@@ -146,6 +146,18 @@ public class Player : Entity
         }
     }
 
+    public override void TakeDamage(int damage)
+    {
+        if(_currentHealth <= 0) return;
+        photonView.RPC(nameof(TakeDamageAnim), RpcTarget.All);
+        base.TakeDamage(damage);
+    }
+
+    [PunRPC]
+    private void TakeDamageAnim()
+    {
+        _animator.SetTrigger("Damage");
+    }
     private int OnWall()
     {
         if(isGrounded) return 0;

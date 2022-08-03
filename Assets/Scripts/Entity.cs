@@ -12,8 +12,8 @@ public class Entity : MonoBehaviour, IDamageable, IPunObservable
 {
     [SerializeField]protected float speed;
     [FormerlySerializedAs("_groundLayer")] [SerializeField] protected LayerMask groundLayer;
-    [SerializeField] private int _maxHealth;
-    [SerializeField] private int _currentHealth;
+    [SerializeField] protected int _maxHealth;
+    [SerializeField] protected int _currentHealth;
     protected Rigidbody2D rb;
     protected float moveDirection;
     protected PhotonView photonView;

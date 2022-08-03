@@ -10,14 +10,13 @@ public class Destroyable : MonoBehaviourPun, IDamageable
     public void TakeDamage(int damage)
     {
         if (_currentHealth <= 0) return;
-        _currentHealth -= damage;
-        photonView.RPC(nameof(UpdateHp), RpcTarget.All, _currentHealth);
+        photonView.RPC(nameof(UpdateHp), RpcTarget.All, damage);
     }
 
     [PunRPC]
     private void UpdateHp(int hp)
     {
-        _currentHealth = hp;
+        _currentHealth -= hp;
         if (_currentHealth > 0) return;
         _currentHealth = 0;
         Dest();
@@ -31,8 +30,7 @@ public class Destroyable : MonoBehaviourPun, IDamageable
     {
         throw new System.NotImplementedException();
     }
-
-    [PunRPC]
+    
     private void Dest()
     {
         if(photonView.IsMine) 
