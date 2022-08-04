@@ -97,7 +97,7 @@ public class Server : MonoBehaviourPunCallbacks
     public IEnumerator MoveToGameScene(string nameScene)
     {
         PhotonNetwork.IsMessageQueueRunning = false;
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(3f);
         LoadLvl(nameScene);
         while(!_sceneLoaded)
         {
