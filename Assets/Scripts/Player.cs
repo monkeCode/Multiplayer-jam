@@ -28,12 +28,17 @@ public class Player : Entity
     private bool _isJump;
     private Inputer _inputer;
     private Animator _animator;
+
+    private void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
+
     protected override void Start()
     {
         base.Start();
         _animator = GetComponent<Animator>();
         _playerState = _playerState;
-        DontDestroyOnLoad(gameObject);
         _inputer = new Inputer();
         _inputer.Enable();
         _inputer.Player.Move.performed += ctx => UpdateMoveDirection(ctx.ReadValue<float>());
