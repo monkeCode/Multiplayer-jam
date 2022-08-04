@@ -19,9 +19,7 @@ public class Lift : MonoBehaviour, IPunObservable, IToggle
     private PhotonView _photonView;
     private Rigidbody2D _rigidbody2D;
     private Vector2 _lastPosition;
-    private Vector2 _lastVelocity;
     private Vector2 _velocity;
-    private Vector2 _acceleration;
     private Animator _animator;
     public void Start()
     {
@@ -45,14 +43,11 @@ public class Lift : MonoBehaviour, IPunObservable, IToggle
         {
             
             _velocity = ((Vector2)transform.position - _lastPosition) / Time.deltaTime;
-            _acceleration = (_velocity - _lastVelocity)/ Time.deltaTime;
             _lastPosition = transform.position;
-            _lastVelocity = _velocity;
-            Debug.Log(_acceleration);
         }
         else
         {
-            _rigidbody2D.velocity = _velocity += _acceleration * Time.deltaTime;
+            _rigidbody2D.velocity = _velocity;
         }
        
     }
@@ -106,8 +101,7 @@ public class Lift : MonoBehaviour, IPunObservable, IToggle
             stream.SendNext(transform.rotation);
             stream.SendNext(_velocity);
             stream.SendNext(_isMoving);
-            stream.SendNext(_acceleration);
-            
+
         }
         else
         {
@@ -115,7 +109,6 @@ public class Lift : MonoBehaviour, IPunObservable, IToggle
             transform.rotation = (Quaternion) stream.ReceiveNext();
             _velocity = (Vector2) stream.ReceiveNext();
             _isMoving = (bool) stream.ReceiveNext();
-            _acceleration = (Vector2) stream.ReceiveNext();
             _animator.SetBool("IsOn", _isMoving);
         }
     }
