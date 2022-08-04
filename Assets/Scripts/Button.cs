@@ -47,6 +47,8 @@ public class Button : MonoBehaviour, IToggle
     {
         if(_photonView.IsMine)
             countClick--;
+        if(countClick > 0)
+            return;
         if(!isToggle)
             Toggle(!_state);
         
