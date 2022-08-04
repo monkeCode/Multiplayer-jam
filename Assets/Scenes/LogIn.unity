@@ -4931,6 +4931,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2853868679427521070, guid: 45ea3734dd148024b93cc99194e4b978, type: 3}
+      propertyPath: _scenes.Array.data[0]
+      value: LvL1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2853868679427521070, guid: 45ea3734dd148024b93cc99194e4b978, type: 3}
+      propertyPath: _scenes.Array.data[1]
+      value: LvL3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2853868679427521070, guid: 45ea3734dd148024b93cc99194e4b978, type: 3}
+      propertyPath: _scenes.Array.data[2]
+      value: Tutorial
+      objectReference: {fileID: 0}
     - target: {fileID: 2853868679427521071, guid: 45ea3734dd148024b93cc99194e4b978, type: 3}
       propertyPath: m_Name
       value: Server
