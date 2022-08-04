@@ -114,6 +114,16 @@ public class Server : MonoBehaviourPunCallbacks
         }
     }
 
+    public void LoadFirstLvl()
+    {
+        _currentScene = -1;
+        LoadNextLvl();
+    }
+
+    public void LoadNextLvl()
+    {
+        StartCoroutine(MoveToGameScene(_scenes[++_currentScene]));
+    }
     public void ToMainMenu()
     {
         

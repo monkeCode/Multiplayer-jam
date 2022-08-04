@@ -172,6 +172,13 @@ public class Player : Entity
             return -1;
         return rightHit.collider!=null ? 1 : 0;
     }
+
+    protected override void Die()
+    {
+        UIManager.Instance.ShowDiePanel();
+    }
+    
+
     public override void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         base.OnPhotonSerializeView(stream, info);

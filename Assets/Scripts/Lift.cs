@@ -120,7 +120,8 @@ public class Lift : MonoBehaviour, IPunObservable, IToggle
 
     private void OnCollisionEnter2D(Collision2D col)
     {
-        col.transform.SetParent(this.transform);
+        if(col.transform.parent != null) return;
+        col.transform.SetParent(transform);
     }
 
     private void OnCollisionExit2D(Collision2D other)

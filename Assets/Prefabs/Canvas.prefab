@@ -126,8 +126,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Leave
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 97449cb7d4b94a747bdb5b8976a8165c, type: 2}
-  m_sharedMaterial: {fileID: 6519214099266478810, guid: 97449cb7d4b94a747bdb5b8976a8165c, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: b552299c11988ca43afdc0e22cd2d62d, type: 2}
+  m_sharedMaterial: {fileID: -2337221156333420507, guid: b552299c11988ca43afdc0e22cd2d62d, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -151,7 +151,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 44.4
+  m_fontSize: 49.4
   m_fontSizeBase: 10
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -462,6 +462,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51b6979908f3a394e8cbc53e7f96ce0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _diePanel: {fileID: 0}
 --- !u!1 &3448609440833612421
 GameObject:
   m_ObjectHideFlags: 0
@@ -528,10 +529,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: You died lol
+  m_text: You  died  lol
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 97449cb7d4b94a747bdb5b8976a8165c, type: 2}
-  m_sharedMaterial: {fileID: 6519214099266478810, guid: 97449cb7d4b94a747bdb5b8976a8165c, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: b552299c11988ca43afdc0e22cd2d62d, type: 2}
+  m_sharedMaterial: {fileID: -2337221156333420507, guid: b552299c11988ca43afdc0e22cd2d62d, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -555,7 +556,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 74.05
+  m_fontSize: 83.15
   m_fontSizeBase: 10
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -799,8 +800,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Restart
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 97449cb7d4b94a747bdb5b8976a8165c, type: 2}
-  m_sharedMaterial: {fileID: 6519214099266478810, guid: 97449cb7d4b94a747bdb5b8976a8165c, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: b552299c11988ca43afdc0e22cd2d62d, type: 2}
+  m_sharedMaterial: {fileID: -2337221156333420507, guid: b552299c11988ca43afdc0e22cd2d62d, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -824,7 +825,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 44.4
+  m_fontSize: 49.4
   m_fontSizeBase: 10
   m_fontWeight: 400
   m_enableAutoSizing: 1

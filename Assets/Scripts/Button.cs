@@ -11,6 +11,7 @@ public class Button : MonoBehaviour, IToggle
     private bool _state;
     private PhotonView _photonView;
     private SpriteRenderer _spriteRenderer;
+    private int countClick = 0;
     [SerializeField] private Sprite[] _sprites;
 
     private void Start()
@@ -21,7 +22,7 @@ public class Button : MonoBehaviour, IToggle
 
     public void Toggle(bool isOn)
     {
-        if (!_photonView.IsMine) return;
+        if (!_photonView.IsMine || countClick > 1) return;
         _state = isOn;
         _photonView.RPC(nameof(RPC_Toggle), RpcTarget.All, isOn);
     }
@@ -37,12 +38,17 @@ public class Button : MonoBehaviour, IToggle
     }
     private void OnTriggerEnter2D(Collider2D col)
     {
-       Toggle(!_state);
+        if (_photonView.IsMine)
+            countClick++;
+        Toggle(!_state);
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
+        if(_photonView.IsMine)
+            countClick--;
         if(!isToggle)
             Toggle(!_state);
+        
     }
 }
