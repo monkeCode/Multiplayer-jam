@@ -83,7 +83,7 @@ public class Entity : MonoBehaviour, IDamageable, IPunObservable
     {
         if (photonView.IsMine)
         {
-            photonView.RPC(nameof(UpdateHealth), RpcTarget.All, 0);
+            photonView.RPC(nameof(UpdateHealth), RpcTarget.All, -MaxHp);
         }
             
     }
