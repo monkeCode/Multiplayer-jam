@@ -14,6 +14,8 @@ public class Entity : MonoBehaviour, IDamageable, IPunObservable
     [FormerlySerializedAs("_groundLayer")] [SerializeField] protected LayerMask groundLayer;
     [SerializeField] protected int _maxHealth;
     [SerializeField] protected int _currentHealth;
+    public int MaxHp => _maxHealth;
+    public int CurrentHp => _currentHealth;
     protected Rigidbody2D rb;
     protected float moveDirection;
     protected PhotonView photonView;
@@ -49,17 +51,19 @@ public class Entity : MonoBehaviour, IDamageable, IPunObservable
     public virtual void TakeDamage(int damage)
     {
         if(_currentHealth<=0) return;
-        _currentHealth -= damage;
-        photonView.RPC(nameof(UpdateHealth), RpcTarget.All, _currentHealth);
+        photonView.RPC(nameof(UpdateHealth), RpcTarget.All, -damage);
     }
     [PunRPC]
-    //update hp on all clients and die if hp is 0
     public virtual void UpdateHealth(int health)
     {
-        _currentHealth = health;
+        _currentHealth += health;
         if (_currentHealth <= 0)
         {
             Die();
+        }
+        else if(_currentHealth > _maxHealth)
+        {
+            _currentHealth = _maxHealth;
         }
     }
    protected bool OnGround()
@@ -72,7 +76,7 @@ public class Entity : MonoBehaviour, IDamageable, IPunObservable
    }
     public virtual void Heal(int heal)
     {
-        
+        photonView.RPC(nameof(UpdateHealth), RpcTarget.All, heal);
     }
 
     public virtual void Kill()

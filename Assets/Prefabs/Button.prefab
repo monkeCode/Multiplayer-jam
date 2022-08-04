@@ -130,6 +130,9 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  _sprites:
+  - {fileID: 1582844742, guid: 2480d65f57db23446a85b0da657c49ed, type: 3}
+  - {fileID: -53047733, guid: 2480d65f57db23446a85b0da657c49ed, type: 3}
 --- !u!114 &5262426446383928269
 MonoBehaviour:
   m_ObjectHideFlags: 0

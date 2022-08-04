@@ -145,6 +145,24 @@ public partial class @Inputer : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RestartLvl"",
+                    ""type"": ""Button"",
+                    ""id"": ""795c8f9e-eb0c-468d-9b7d-01219cd35286"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""6fd5a389-6f2a-4f98-83a0-fdd986738c28"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -156,6 +174,28 @@ public partial class @Inputer : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""LoadScene"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fadf0b08-e923-4ae6-b6d3-44771b7a21c4"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RestartLvl"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e342abc3-6a54-42b4-9fe6-bb99c1b2d93a"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -173,6 +213,8 @@ public partial class @Inputer : IInputActionCollection2, IDisposable
         // Menu
         m_Menu = asset.FindActionMap("Menu", throwIfNotFound: true);
         m_Menu_LoadScene = m_Menu.FindAction("LoadScene", throwIfNotFound: true);
+        m_Menu_RestartLvl = m_Menu.FindAction("RestartLvl", throwIfNotFound: true);
+        m_Menu_Pause = m_Menu.FindAction("Pause", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -290,11 +332,15 @@ public partial class @Inputer : IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Menu;
     private IMenuActions m_MenuActionsCallbackInterface;
     private readonly InputAction m_Menu_LoadScene;
+    private readonly InputAction m_Menu_RestartLvl;
+    private readonly InputAction m_Menu_Pause;
     public struct MenuActions
     {
         private @Inputer m_Wrapper;
         public MenuActions(@Inputer wrapper) { m_Wrapper = wrapper; }
         public InputAction @LoadScene => m_Wrapper.m_Menu_LoadScene;
+        public InputAction @RestartLvl => m_Wrapper.m_Menu_RestartLvl;
+        public InputAction @Pause => m_Wrapper.m_Menu_Pause;
         public InputActionMap Get() { return m_Wrapper.m_Menu; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -307,6 +353,12 @@ public partial class @Inputer : IInputActionCollection2, IDisposable
                 @LoadScene.started -= m_Wrapper.m_MenuActionsCallbackInterface.OnLoadScene;
                 @LoadScene.performed -= m_Wrapper.m_MenuActionsCallbackInterface.OnLoadScene;
                 @LoadScene.canceled -= m_Wrapper.m_MenuActionsCallbackInterface.OnLoadScene;
+                @RestartLvl.started -= m_Wrapper.m_MenuActionsCallbackInterface.OnRestartLvl;
+                @RestartLvl.performed -= m_Wrapper.m_MenuActionsCallbackInterface.OnRestartLvl;
+                @RestartLvl.canceled -= m_Wrapper.m_MenuActionsCallbackInterface.OnRestartLvl;
+                @Pause.started -= m_Wrapper.m_MenuActionsCallbackInterface.OnPause;
+                @Pause.performed -= m_Wrapper.m_MenuActionsCallbackInterface.OnPause;
+                @Pause.canceled -= m_Wrapper.m_MenuActionsCallbackInterface.OnPause;
             }
             m_Wrapper.m_MenuActionsCallbackInterface = instance;
             if (instance != null)
@@ -314,6 +366,12 @@ public partial class @Inputer : IInputActionCollection2, IDisposable
                 @LoadScene.started += instance.OnLoadScene;
                 @LoadScene.performed += instance.OnLoadScene;
                 @LoadScene.canceled += instance.OnLoadScene;
+                @RestartLvl.started += instance.OnRestartLvl;
+                @RestartLvl.performed += instance.OnRestartLvl;
+                @RestartLvl.canceled += instance.OnRestartLvl;
+                @Pause.started += instance.OnPause;
+                @Pause.performed += instance.OnPause;
+                @Pause.canceled += instance.OnPause;
             }
         }
     }
@@ -328,5 +386,7 @@ public partial class @Inputer : IInputActionCollection2, IDisposable
     public interface IMenuActions
     {
         void OnLoadScene(InputAction.CallbackContext context);
+        void OnRestartLvl(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
     }
 }

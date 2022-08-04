@@ -10,10 +10,13 @@ public class Button : MonoBehaviour, IToggle
     [SerializeField] private List<GameObject> _toggles;
     private bool _state;
     private PhotonView _photonView;
+    private SpriteRenderer _spriteRenderer;
+    [SerializeField] private Sprite[] _sprites;
 
     private void Start()
     {
         _photonView = GetComponent<PhotonView>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     public void Toggle(bool isOn)
@@ -26,6 +29,7 @@ public class Button : MonoBehaviour, IToggle
     public void RPC_Toggle(bool isOn)
     {
         _state = isOn;
+        _spriteRenderer.sprite = isOn?_sprites[0]:_sprites[1];
         foreach (var toggle in _toggles)
         {
             toggle.GetComponent<IToggle>()?.Toggle(isOn);

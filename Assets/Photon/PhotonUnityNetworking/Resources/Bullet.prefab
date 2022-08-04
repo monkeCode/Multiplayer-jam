@@ -138,6 +138,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _dmg: 1
   _timeToDestroy: 3
+  _pushForce: 10
 --- !u!1 &8244558293768411016
 GameObject:
   m_ObjectHideFlags: 0

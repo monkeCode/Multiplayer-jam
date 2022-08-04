@@ -10,6 +10,8 @@ public class Bullet : MonoBehaviourPun, IPunObservable
     [SerializeField] private float _timeToDestroy;
     private Rigidbody2D _rigidbody2D;
     private GameObject _caster;
+    [SerializeField] private float _pushForce;
+
     private void Start()
     {
         _rigidbody2D = GetComponent<Rigidbody2D>();
@@ -57,6 +59,10 @@ public class Bullet : MonoBehaviourPun, IPunObservable
         if (col.TryGetComponent(out IDamageable damageable))
         {
             damageable.TakeDamage(_dmg);
+            if (col.TryGetComponent(out Rigidbody2D rb))
+            {
+                rb.AddForce(_rigidbody2D.velocity * _pushForce, ForceMode2D.Impulse);
+            }
         }
         if(col.CompareTag("BulletIgnore")) return;
         PhotonNetwork.Destroy(gameObject);

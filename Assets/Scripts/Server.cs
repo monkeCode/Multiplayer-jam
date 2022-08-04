@@ -12,10 +12,16 @@ public class Server : MonoBehaviourPunCallbacks
     public static Server Instance { get; private set; }
     private bool _sceneLoaded;
     [SerializeField] private List<InventoryItem> _items;
+    [SerializeField] private string[] _scenes;
+    [SerializeField] private string _roomName;
+    public string RoomName => _roomName;
+    private int _currentScene = 0;
+    public Player Player1;
+    public Player Player2;
     public override void OnConnectedToMaster()
     {
         Debug.Log("OnConnectedToMaster() was called by PUN.");
-        PhotonNetwork.JoinOrCreateRoom("Test", new RoomOptions {MaxPlayers = 2}, TypedLobby.Default);
+        PhotonNetwork.JoinOrCreateRoom(_roomName, new RoomOptions {MaxPlayers = 2}, TypedLobby.Default);
     }
     public override void OnCreatedRoom()
     {
@@ -27,8 +33,19 @@ public class Server : MonoBehaviourPunCallbacks
     {
         Debug.Log("Joined room: " + PhotonNetwork.CurrentRoom.Name);
         base.OnJoinedRoom();
-        var player =  PhotonNetwork.Instantiate("Player", new Vector3(1, 1, 0), Quaternion.identity);
-        Camera.main.GetComponent<CinemachineVirtualCamera>().Follow = player.transform;
+        
+        if (PhotonNetwork.IsMasterClient)
+        {
+            var player =  PhotonNetwork.Instantiate("Player1" , new Vector3(1, 1, 0), Quaternion.identity);
+            Camera.main.GetComponent<CinemachineVirtualCamera>().Follow = player.transform;
+            Player1 = player.GetComponent<Player>();
+        }
+        else
+        {
+            var player =  PhotonNetwork.Instantiate("Player2" , new Vector3(1, 1, 0), Quaternion.identity);
+            Camera.main.GetComponent<CinemachineVirtualCamera>().Follow = player.transform;
+            Player2 = player.GetComponent<Player>();
+        }
     }
     private void Awake()
     {
@@ -71,15 +88,42 @@ public class Server : MonoBehaviourPunCallbacks
     {
         PhotonNetwork.IsMessageQueueRunning = false;
         LoadLvl(nameScene);
-        while(_sceneLoaded == false)
+        while(!_sceneLoaded)
         {
             yield return null;
         }
         PhotonNetwork.IsMessageQueueRunning = true;
+        
     }
-
+    public Transform GetLookingObject( )
+    {
+        return PhotonNetwork.IsMasterClient ? Player1?.transform : Player2?.transform;
+    }
     public InventoryItem GetItem(string itemName)
     {
         return Instantiate(_items.Find(x => x.ItemName == itemName));
+    }
+    
+    
+    public void RestartLvl()
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            UpdatePlayers();
+            StartCoroutine(MoveToGameScene(SceneManager.GetActiveScene().name));
+        }
+    }
+
+    public void ToMainMenu()
+    {
+        
+    }
+    
+    private void UpdatePlayers()
+    {
+        Player1?.Heal(Player1.MaxHp);
+        Player2?.Heal(Player2.MaxHp);
+        Player1?.GetComponent<PhotonView>()?.RPC(nameof(Player1.DeleteActiveItem), RpcTarget.All);
+        Player2?.GetComponent<PhotonView>()?.RPC(nameof(Player2.DeleteActiveItem), RpcTarget.All);
     }
 }

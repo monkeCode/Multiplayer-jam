@@ -47,3 +47,8 @@ MonoBehaviour:
   _items:
   - {fileID: 11400000, guid: 5b30931c0ec1f8144b1f2dbdf7034609, type: 2}
   - {fileID: 11400000, guid: 73b2192d85a140e49a22756b72cfcabd, type: 2}
+  _scenes:
+  - SampleScene
+  _roomName: test1
+  Player1: {fileID: 0}
+  Player2: {fileID: 0}
