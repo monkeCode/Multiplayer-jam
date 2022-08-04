@@ -115,6 +115,8 @@ public class Server : MonoBehaviourPunCallbacks
     
     public void RestartLvl()
     {
+        DontDestroyOnLoad(Player1.gameObject);
+        DontDestroyOnLoad(Player2.gameObject);
         if (PhotonNetwork.IsMasterClient)
         {
             UpdatePlayers();
@@ -142,7 +144,7 @@ public class Server : MonoBehaviourPunCallbacks
     {
         if (Player1 != null)
         {
-            DontDestroyOnLoad(Player1.gameObject);
+            DontDestroyOnLoad(Player2.gameObject);
             Player1?.Heal(Player1.MaxHp);
             Player1?.GetComponent<PhotonView>()?.RPC(nameof(Player1.DeleteActiveItem), RpcTarget.All);
         }
