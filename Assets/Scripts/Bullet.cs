@@ -12,11 +12,13 @@ public class Bullet : MonoBehaviourPun, IPunObservable
     private GameObject _caster;
     [SerializeField] private float _pushForce;
 
-    private void Start()
+    private IEnumerable Start()
     {
         _rigidbody2D = GetComponent<Rigidbody2D>();
-        Destroy(gameObject, _timeToDestroy);
-        
+        if (!photonView.IsMine) yield break;
+        yield return new WaitForSeconds(_timeToDestroy);
+        PhotonNetwork.Destroy(gameObject);
+
     }
 
     private void Update()
