@@ -4875,6 +4875,11 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!60 &96210399 stripped
+PolygonCollider2D:
+  m_CorrespondingSourceObject: {fileID: 8024462621328953273, guid: 138893011777ec840aee0313c690ca5b, type: 3}
+  m_PrefabInstance: {fileID: 8024462622760828974}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &649731965
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5647,7 +5652,7 @@ PrefabInstance:
     - target: {fileID: 3219162322093499966, guid: 3cae33ddcaea07e4894273538f7acc8c, type: 3}
       propertyPath: m_BoundingShape2D
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 96210399}
     - target: {fileID: 7555898749041550353, guid: 3cae33ddcaea07e4894273538f7acc8c, type: 3}
       propertyPath: orthographic size
       value: 5
@@ -5662,7 +5667,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7555898749041550574, guid: 3cae33ddcaea07e4894273538f7acc8c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.008703368
+      value: -0.008714504
       objectReference: {fileID: 0}
     - target: {fileID: 7555898749041550574, guid: 3cae33ddcaea07e4894273538f7acc8c, type: 3}
       propertyPath: m_LocalPosition.y
