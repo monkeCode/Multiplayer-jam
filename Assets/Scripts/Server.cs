@@ -45,7 +45,6 @@ public class Server : MonoBehaviourPunCallbacks
             var player =  PhotonNetwork.Instantiate("Player2" , new Vector3(1, 1, 0), Quaternion.identity);
             Camera.main.GetComponent<CinemachineVirtualCamera>().Follow = player.transform;
             Player2 = player.GetComponent<Player>();
-            Player1 = GameObject.Find("Player1(Clone)").GetComponent<Player>();
             photonView.RPC(nameof(AddSecondPlayer), RpcTarget.MasterClient);
         }
     }
