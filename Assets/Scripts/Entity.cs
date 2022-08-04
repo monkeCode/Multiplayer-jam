@@ -93,6 +93,12 @@ public class Entity : MonoBehaviour, IDamageable, IPunObservable
         if(photonView.IsMine)
             PhotonNetwork.Destroy(gameObject);
     }
+
+    [PunRPC]
+    public void Push(Vector2 force)
+    {
+        rb.AddForce(force, ForceMode2D.Impulse);
+    }
     public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         if (stream.IsWriting)

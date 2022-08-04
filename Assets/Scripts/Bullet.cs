@@ -61,9 +61,9 @@ public class Bullet : MonoBehaviourPun, IPunObservable
         if (col.TryGetComponent(out IDamageable damageable))
         {
             damageable.TakeDamage(_dmg);
-            if (col.TryGetComponent(out Rigidbody2D rb))
+            if (col.TryGetComponent(out Entity rb))
             {
-                rb.AddForce(_rigidbody2D.velocity * _pushForce, ForceMode2D.Impulse);
+                rb.GetComponent<PhotonView>().RPC(nameof(rb.Push), RpcTarget.All, _pushForce * _rigidbody2D.velocity.normalized);
             }
         }
         if(col.CompareTag("BulletIgnore")) return;
