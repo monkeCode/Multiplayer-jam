@@ -144,7 +144,7 @@ public class Server : MonoBehaviourPunCallbacks
     {
         if (Player1 != null)
         {
-            DontDestroyOnLoad(Player2.gameObject);
+            DontDestroyOnLoad(Player1.gameObject);
             Player1?.Heal(Player1.MaxHp);
             Player1?.GetComponent<PhotonView>()?.RPC(nameof(Player1.DeleteActiveItem), RpcTarget.All);
         }
