@@ -96,8 +96,8 @@ public class Server : MonoBehaviourPunCallbacks
     
     public IEnumerator MoveToGameScene(string nameScene)
     {
-        PhotonNetwork.IsMessageQueueRunning = false;
         yield return new WaitForSeconds(3f);
+        PhotonNetwork.IsMessageQueueRunning = false;
         LoadLvl(nameScene);
         while(!_sceneLoaded)
         {
@@ -138,7 +138,6 @@ public class Server : MonoBehaviourPunCallbacks
         _currentScene = -1;
         LoadNextLvl();
     }
-
     public void LoadNextLvl()
     {
         UpdatePlayers();
