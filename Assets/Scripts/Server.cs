@@ -131,9 +131,16 @@ public class Server : MonoBehaviourPunCallbacks
     
     private void UpdatePlayers()
     {
-        Player1?.Heal(Player1.MaxHp);
-        Player2?.Heal(Player2.MaxHp);
-        Player1?.GetComponent<PhotonView>()?.RPC(nameof(Player1.DeleteActiveItem), RpcTarget.All);
-        Player2?.GetComponent<PhotonView>()?.RPC(nameof(Player2.DeleteActiveItem), RpcTarget.All);
+        if (Player1 != null)
+        {
+            Player1?.Heal(Player1.MaxHp);
+            Player1?.GetComponent<PhotonView>()?.RPC(nameof(Player1.DeleteActiveItem), RpcTarget.All);
+        }
+        if (Player2 != null)
+        {
+            Player2?.Heal(Player2.MaxHp);
+            Player2?.GetComponent<PhotonView>()?.RPC(nameof(Player2.DeleteActiveItem), RpcTarget.All);
+        }
+        
     }
 }
