@@ -2750,6 +2750,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Server
       objectReference: {fileID: 0}
+    - target: {fileID: 3093277294444892410, guid: 45ea3734dd148024b93cc99194e4b978, type: 3}
+      propertyPath: sceneViewId
+      value: 23
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 45ea3734dd148024b93cc99194e4b978, type: 3}
 --- !u!1001 &1853448440
@@ -2830,7 +2834,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7935342866524437281, guid: e382703cb3eae2040b81efd4ad727a5e, type: 3}
       propertyPath: sceneViewId
-      value: 1
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 7935342866524437282, guid: e382703cb3eae2040b81efd4ad727a5e, type: 3}
       propertyPath: _speed

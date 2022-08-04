@@ -4930,6 +4930,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Server
       objectReference: {fileID: 0}
+    - target: {fileID: 3093277294444892410, guid: 45ea3734dd148024b93cc99194e4b978, type: 3}
+      propertyPath: sceneViewId
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 45ea3734dd148024b93cc99194e4b978, type: 3}
 --- !u!1 &684476138
@@ -5781,7 +5785,7 @@ PrefabInstance:
     - target: {fileID: 3219162322093499966, guid: 3cae33ddcaea07e4894273538f7acc8c, type: 3}
       propertyPath: m_BoundingShape2D
       value: 
-      objectReference: {fileID: 1991856023}
+      objectReference: {fileID: 0}
     - target: {fileID: 7555898749041550353, guid: 3cae33ddcaea07e4894273538f7acc8c, type: 3}
       propertyPath: orthographic size
       value: 5
@@ -12651,11 +12655,6 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
---- !u!60 &1991856023 stripped
-PolygonCollider2D:
-  m_CorrespondingSourceObject: {fileID: 8024462621328953273, guid: 138893011777ec840aee0313c690ca5b, type: 3}
-  m_PrefabInstance: {fileID: 8024462622760828974}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3774655036279690712
 PrefabInstance:
   m_ObjectHideFlags: 0
