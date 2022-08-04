@@ -129,6 +129,10 @@ public class Lift : MonoBehaviour, IPunObservable, IToggle
         if (other.transform.parent == gameObject.transform)
         {
             other.transform.SetParent(null);
+            if (other.transform.TryGetComponent(out Player p))
+            {
+                DontDestroyOnLoad(p.gameObject);
+            }
         }
     }
 }
