@@ -34,6 +34,13 @@ public class Player : Entity
         DontDestroyOnLoad(gameObject);
     }
 
+    [PunRPC]
+    public void SetNonDestroyable()
+    {
+        transform.parent = null;
+        DontDestroyOnLoad(gameObject);
+    }
+    
     protected override void Start()
     {
         base.Start();
