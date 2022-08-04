@@ -15,7 +15,7 @@ public class Server : MonoBehaviourPunCallbacks
     [SerializeField] private string[] _scenes;
     [SerializeField] private string _roomName;
     public string RoomName => _roomName;
-    private int _currentScene = 0;
+    private int _currentScene = -1;
     public Player Player1;
     public Player Player2;
     public override void OnConnectedToMaster()

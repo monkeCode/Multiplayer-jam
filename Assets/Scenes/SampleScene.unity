@@ -2956,6 +2956,30 @@ PrefabInstance:
       propertyPath: sceneViewId
       value: 103
       objectReference: {fileID: 0}
+    - target: {fileID: 848343882109516122, guid: d310bdd738a84e54c972a0d79be3cd9d, type: 3}
+      propertyPath: sceneViewId
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1153277579622689729, guid: d310bdd738a84e54c972a0d79be3cd9d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 19.353
+      objectReference: {fileID: 0}
+    - target: {fileID: 1153277579622689729, guid: d310bdd738a84e54c972a0d79be3cd9d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.883
+      objectReference: {fileID: 0}
+    - target: {fileID: 5502930078231726493, guid: d310bdd738a84e54c972a0d79be3cd9d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 18.875
+      objectReference: {fileID: 0}
+    - target: {fileID: 5502930078231726493, guid: d310bdd738a84e54c972a0d79be3cd9d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 6.921
+      objectReference: {fileID: 0}
+    - target: {fileID: 6312633105732000518, guid: d310bdd738a84e54c972a0d79be3cd9d, type: 3}
+      propertyPath: sceneViewId
+      value: 24
+      objectReference: {fileID: 0}
     - target: {fileID: 7009262441097861016, guid: d310bdd738a84e54c972a0d79be3cd9d, type: 3}
       propertyPath: m_RootOrder
       value: 34
