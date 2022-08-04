@@ -96,7 +96,6 @@ public class Server : MonoBehaviourPunCallbacks
     
     public IEnumerator MoveToGameScene(string nameScene)
     {
-        yield return new WaitForSeconds(3f);
         PhotonNetwork.IsMessageQueueRunning = false;
         LoadLvl(nameScene);
         while(!_sceneLoaded)
@@ -152,17 +151,17 @@ public class Server : MonoBehaviourPunCallbacks
     {
         if (Player1 != null)
         {
-            // Player1.transform.parent = null;
-            // DontDestroyOnLoad(Player1.gameObject);
-            Player1.GetComponent<PhotonView>().RPC(nameof(Player1.SetNonDestroyable), RpcTarget.All);
+            Player1.transform.parent = null;
+            DontDestroyOnLoad(Player1.gameObject);
+            //Player1.GetComponent<PhotonView>().RPC(nameof(Player1.SetNonDestroyable), RpcTarget.All);
             Player1?.Heal(Player1.MaxHp);
             Player1?.GetComponent<PhotonView>()?.RPC(nameof(Player1.DeleteActiveItem), RpcTarget.All);
         }
         if (Player2 != null)
         {
-            // Player2.transform.parent = null;
-            // DontDestroyOnLoad(Player2.gameObject);
-            Player2.GetComponent<PhotonView>().RPC(nameof(Player2.SetNonDestroyable), RpcTarget.All);
+            Player2.transform.parent = null;
+            DontDestroyOnLoad(Player2.gameObject);
+            //Player2.GetComponent<PhotonView>().RPC(nameof(Player2.SetNonDestroyable), RpcTarget.All);
             Player2?.Heal(Player2.MaxHp);
             Player2?.GetComponent<PhotonView>()?.RPC(nameof(Player2.DeleteActiveItem), RpcTarget.All);
         }
