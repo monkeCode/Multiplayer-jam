@@ -97,7 +97,15 @@ public class Server : MonoBehaviourPunCallbacks
     }
     public Transform GetLookingObject( )
     {
-        return PhotonNetwork.IsMasterClient ? Player1?.transform : Player2?.transform;
+        try
+        {
+            return PhotonNetwork.IsMasterClient ? Player1?.transform : Player2?.transform;
+        }
+        catch (Exception e)
+        {
+            Debug.Log(e);
+            return null;
+        }
     }
     public InventoryItem GetItem(string itemName)
     {
