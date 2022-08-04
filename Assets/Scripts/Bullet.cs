@@ -12,7 +12,7 @@ public class Bullet : MonoBehaviourPun, IPunObservable
     private GameObject _caster;
     [SerializeField] private float _pushForce;
 
-    private IEnumerable Start()
+    private IEnumerator Start()
     {
         _rigidbody2D = GetComponent<Rigidbody2D>();
         if (!photonView.IsMine) yield break;
