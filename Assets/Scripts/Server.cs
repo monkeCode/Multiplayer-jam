@@ -159,8 +159,8 @@ public class Server : MonoBehaviourPunCallbacks
     }
     public void LoadNextLvl()
     {
-        UpdatePlayers();
         //StartCoroutine(MoveToGameScene(_scenes[++CurrentLvl % _scenes.Length]));
+        UpdatePlayers();
         photonView.RPC(nameof(SelfLoadLvl), RpcTarget.All,_scenes[++CurrentLvl % _scenes.Length] );
     }
     public void ToMainMenu()
