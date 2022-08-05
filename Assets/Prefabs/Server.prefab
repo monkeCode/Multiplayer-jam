@@ -54,8 +54,10 @@ MonoBehaviour:
   - LvL2
   - LvL5
   - LvL6
+  - LvL8
   - LvL9
   _roomName: test1
+  CurrentLvl: -1
   Player1: {fileID: 0}
   Player2: {fileID: 0}
 --- !u!114 &3093277294444892410
