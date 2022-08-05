@@ -36,7 +36,10 @@ public class UIManager : MonoBehaviourPun
     }
     public void CloseDiePanel()
     {
-        photonView.RPC(nameof(CloseRpc), RpcTarget.All);
+        if (PhotonNetwork.IsMasterClient)
+        {
+            photonView.RPC(nameof(CloseRpc), RpcTarget.All);
+        }
     }
 
     [PunRPC]
