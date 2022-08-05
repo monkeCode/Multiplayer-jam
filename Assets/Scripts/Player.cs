@@ -75,13 +75,13 @@ public class Player : Entity
             if (_item != null && photonView.IsMine)
                 _item.CanselUse();
         };
-        _inputer.Menu.LoadScene.performed += ctx =>
+        _inputer.Menu.RestartLvl.performed += context =>
         {
             if (PhotonNetwork.IsMasterClient)
             {
-                StartCoroutine(Server.Instance.MoveToGameScene("SampleScene"));
+                Server.Instance.RestartLvl();
             }
-        };
+        }
     }
     protected override void FixedUpdate()
     {
