@@ -982,6 +982,10 @@ PrefabInstance:
       value: Button
       objectReference: {fileID: 0}
     - target: {fileID: 1052819203092259607, guid: b76b4514c28e8ac46994c5a34e5eac74, type: 3}
+      propertyPath: isToggle
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1052819203092259607, guid: b76b4514c28e8ac46994c5a34e5eac74, type: 3}
       propertyPath: _toggles.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -1217,7 +1221,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5680433909487285185, guid: 1c492404f0bdfe644b03db463a7d148e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.841
+      value: 0.63
       objectReference: {fileID: 0}
     - target: {fileID: 5680433909487285185, guid: 1c492404f0bdfe644b03db463a7d148e, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1390,6 +1394,11 @@ PrefabInstance:
 --- !u!4 &337274769 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 862899302632150700, guid: 94f0e8dc1edb7b04982ff7592b9e558a, type: 3}
+  m_PrefabInstance: {fileID: 337274768}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &337274770 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 862899302632150705, guid: 94f0e8dc1edb7b04982ff7592b9e558a, type: 3}
   m_PrefabInstance: {fileID: 337274768}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &349495858
@@ -4767,7 +4776,7 @@ CompositeCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_GeometryType: 0
+  m_GeometryType: 1
   m_GenerationType: 0
   m_EdgeRadius: 0
   m_ColliderPaths:
@@ -5874,6 +5883,10 @@ PrefabInstance:
     - target: {fileID: 1052819203092259606, guid: b76b4514c28e8ac46994c5a34e5eac74, type: 3}
       propertyPath: m_Name
       value: Button (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1052819203092259607, guid: b76b4514c28e8ac46994c5a34e5eac74, type: 3}
+      propertyPath: isToggle
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5262426446383928269, guid: b76b4514c28e8ac46994c5a34e5eac74, type: 3}
       propertyPath: sceneViewId
@@ -7503,6 +7516,10 @@ PrefabInstance:
       value: Button (8)
       objectReference: {fileID: 0}
     - target: {fileID: 1052819203092259607, guid: b76b4514c28e8ac46994c5a34e5eac74, type: 3}
+      propertyPath: isToggle
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1052819203092259607, guid: b76b4514c28e8ac46994c5a34e5eac74, type: 3}
       propertyPath: _toggles.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -8938,6 +8955,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Button (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 1052819203092259607, guid: b76b4514c28e8ac46994c5a34e5eac74, type: 3}
+      propertyPath: isToggle
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1052819203092259607, guid: b76b4514c28e8ac46994c5a34e5eac74, type: 3}
+      propertyPath: _toggles.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1052819203092259607, guid: b76b4514c28e8ac46994c5a34e5eac74, type: 3}
+      propertyPath: _toggles.Array.data[0]
+      value: 
+      objectReference: {fileID: 337274770}
     - target: {fileID: 5262426446383928269, guid: b76b4514c28e8ac46994c5a34e5eac74, type: 3}
       propertyPath: sceneViewId
       value: 17
@@ -11730,6 +11759,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Button (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1052819203092259607, guid: b76b4514c28e8ac46994c5a34e5eac74, type: 3}
+      propertyPath: isToggle
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1052819203092259607, guid: b76b4514c28e8ac46994c5a34e5eac74, type: 3}
+      propertyPath: _toggles.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1052819203092259607, guid: b76b4514c28e8ac46994c5a34e5eac74, type: 3}
+      propertyPath: _toggles.Array.data[0]
+      value: 
+      objectReference: {fileID: 337274770}
     - target: {fileID: 5262426446383928269, guid: b76b4514c28e8ac46994c5a34e5eac74, type: 3}
       propertyPath: sceneViewId
       value: 10
@@ -11870,6 +11911,10 @@ PrefabInstance:
     - target: {fileID: 1052819203092259606, guid: b76b4514c28e8ac46994c5a34e5eac74, type: 3}
       propertyPath: m_Name
       value: Button (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1052819203092259607, guid: b76b4514c28e8ac46994c5a34e5eac74, type: 3}
+      propertyPath: isToggle
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5262426446383928269, guid: b76b4514c28e8ac46994c5a34e5eac74, type: 3}
       propertyPath: sceneViewId
@@ -12527,7 +12572,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5680433909487285185, guid: 1c492404f0bdfe644b03db463a7d148e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.86
+      value: 0.65
       objectReference: {fileID: 0}
     - target: {fileID: 5680433909487285185, guid: 1c492404f0bdfe644b03db463a7d148e, type: 3}
       propertyPath: m_LocalPosition.z
