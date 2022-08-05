@@ -14,7 +14,8 @@ public class Mushroom : Entity
 
     protected override void Update()
     {
-        if(photonView.IsMine)
+        base.Update();
+        if(photonView.IsMine && isGrounded)
             CheckMoveDir();
         spriteRenderer.flipX = rb.velocity.x > 0;
     }

@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using Photon.Pun;
 using Unity.VisualScripting;
 using UnityEngine;
-[RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(Rigidbody2D))]
 public class Saw : MonoBehaviourPun, IToggle
 {
@@ -13,19 +12,22 @@ public class Saw : MonoBehaviourPun, IToggle
     [SerializeField] private LayerMask _groundLayer;
     [SerializeField] private int _damage;
     private Rigidbody2D _rigidbody2D;
-    private Animation _animation;
     void Start()
     {
         _rigidbody2D = GetComponent<Rigidbody2D>();
-        _animation = GetComponent<Animation>();
 
     }
     
     void Update()
     {
-        if (photonView.IsMine && _isOn)
+        if (photonView.IsMine)
         {
-            _rigidbody2D.velocity = GetMoveDir();
+            if(_isOn)
+                _rigidbody2D.velocity = GetMoveDir();
+            else
+            {
+                _rigidbody2D.velocity += Vector2.up * Physics2D.gravity * Time.deltaTime;
+            }
         }
         
     }
@@ -70,7 +72,7 @@ public class Saw : MonoBehaviourPun, IToggle
         }
 
         if (moveDir == Vector2.zero)
-            return _rigidbody2D.velocity + Physics2D.gravity * Time.deltaTime;
+            return _rigidbody2D.velocity + Physics2D.gravity * Time.deltaTime + Vector2.right * (_speed * Time.deltaTime);
         return moveDir * _speed;
     }
 

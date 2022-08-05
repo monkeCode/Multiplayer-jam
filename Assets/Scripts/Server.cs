@@ -15,7 +15,8 @@ public class Server : MonoBehaviourPunCallbacks
     [SerializeField] private string[] _scenes;
     [SerializeField] private string _roomName;
     public string RoomName => _roomName;
-    private int _currentScene = -1;
+    public int CurrentLvl = -1;
+    public int CountLvl => _scenes.Length;
     public Player Player1;
     public Player Player2;
     public override void OnConnectedToMaster()
@@ -136,22 +137,23 @@ public class Server : MonoBehaviourPunCallbacks
         }
     }
 
-    public void LoadFirstLvl()
-    {
-        _currentScene = -1;
-        LoadNextLvl();
-    }
+    
     public void LoadNextLvl()
     {
         UpdatePlayers();
-        StartCoroutine(MoveToGameScene(_scenes[++_currentScene]));
+        StartCoroutine(MoveToGameScene(_scenes[++CurrentLvl % _scenes.Length]));
     }
     public void ToMainMenu()
     {
         PhotonNetwork.LeaveRoom();
         SceneManager.LoadScene("MainMenu");
     }
-    
+
+    public void LoadCurrentLvl()
+    {
+        CurrentLvl--;
+        LoadNextLvl();
+    }
     private void UpdatePlayers()
     {
         if (Player1 != null)
