@@ -13,7 +13,7 @@ public class LobbyLoader : MonoBehaviourPun,IToggle
             _count += isOn ? 1 : -1;
             if (_count == 2)
             {
-                Server.Instance.LoadNextLvl();
+                Server.Instance.LoadCurrentLvl();
             }
         }
     }

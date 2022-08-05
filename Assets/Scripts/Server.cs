@@ -15,7 +15,7 @@ public class Server : MonoBehaviourPunCallbacks
     [SerializeField] private string[] _scenes;
     [SerializeField] private string _roomName;
     public string RoomName => _roomName;
-    public int CurrentLvl = -1;
+    public int CurrentLvl = 0;
     public int CountLvl => _scenes.Length;
     public Player Player1;
     public Player Player2;
