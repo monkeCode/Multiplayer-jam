@@ -56,18 +56,25 @@ public class Bullet : MonoBehaviourPun, IPunObservable
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if (!photonView.IsMine) return;
-        if(_caster == col.gameObject) return;
-        if (col.TryGetComponent(out IDamageable damageable))
+        if (photonView.IsMine)
         {
-            damageable.TakeDamage(_dmg);
-            if (col.TryGetComponent(out Entity rb))
+            if (_caster == col.gameObject) return;
+            if (col.TryGetComponent(out IDamageable damageable))
             {
-                rb.GetComponent<PhotonView>().RPC(nameof(rb.Push), RpcTarget.All, _pushForce * _rigidbody2D.velocity.normalized);
+                damageable.TakeDamage(_dmg);
+                if (col.TryGetComponent(out Entity rb))
+                {
+                    rb.GetComponent<PhotonView>().RPC(nameof(rb.Push), RpcTarget.All,
+                        _pushForce * _rigidbody2D.velocity.normalized);
+                }
             }
         }
-        if(col.CompareTag("BulletIgnore")) return;
-        PhotonNetwork.Destroy(gameObject);
+
+        if (PhotonNetwork.IsMasterClient)
+        {
+            if (col.CompareTag("BulletIgnore")) return;
+            PhotonNetwork.Destroy(gameObject);
+        }
     }
     
 }

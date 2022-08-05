@@ -33,8 +33,7 @@ public class Destroyable : MonoBehaviourPun, IDamageable
     
     private void Dest()
     {
-        //if(photonView.IsMine) 
-            //PhotonNetwork.Destroy(gameObject);
-            Destroy(gameObject);
+        if(PhotonNetwork.IsMasterClient) 
+            PhotonNetwork.Destroy(gameObject);
     }
 }
