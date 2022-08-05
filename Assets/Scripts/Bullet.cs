@@ -17,13 +17,20 @@ public class Bullet : MonoBehaviourPun, IPunObservable
         _rigidbody2D = GetComponent<Rigidbody2D>();
         if (!photonView.IsMine) yield break;
         yield return new WaitForSeconds(_timeToDestroy);
-        PhotonNetwork.Destroy(gameObject);
-
+        try
+        {
+            PhotonNetwork.Destroy(gameObject);
+        }
+        catch (Exception)
+        {
+            // ignored
+        }
     }
 
     protected virtual void Update()
     {
-       _rigidbody2D.rotation = Mathf.Atan2(_rigidbody2D.velocity.y, _rigidbody2D.velocity.x) * Mathf.Rad2Deg - 90;
+        if(photonView.IsMine)
+            _rigidbody2D.rotation = Mathf.Atan2(_rigidbody2D.velocity.y, _rigidbody2D.velocity.x) * Mathf.Rad2Deg - 90;
     }
 
     public void SetCaster(GameObject caster)
@@ -37,15 +44,18 @@ public class Bullet : MonoBehaviourPun, IPunObservable
         {
             stream.SendNext(_rigidbody2D.position);
             stream.SendNext(_rigidbody2D.velocity);
+            stream.SendNext(_rigidbody2D.rotation);
         }
         else
         {
             Vector2 syncPos = (Vector2)stream.ReceiveNext();
             Vector2 syncVel = (Vector2)stream.ReceiveNext();
+            float syncRot = (float)stream.ReceiveNext();
             try
             {
                 _rigidbody2D.position = syncPos;
                 _rigidbody2D.velocity = syncVel;
+                _rigidbody2D.rotation = syncRot;
             }
             catch (Exception)
             {
@@ -56,25 +66,19 @@ public class Bullet : MonoBehaviourPun, IPunObservable
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if (photonView.IsMine)
+        if (!photonView.IsMine) return;
+        if (_caster == col.gameObject) return;
+        if (col.TryGetComponent(out IDamageable damageable))
         {
-            if (_caster == col.gameObject) return;
-            if (col.TryGetComponent(out IDamageable damageable))
+            damageable.TakeDamage(_dmg);
+            if (col.TryGetComponent(out Entity rb))
             {
-                damageable.TakeDamage(_dmg);
-                if (col.TryGetComponent(out Entity rb))
-                {
-                    rb.GetComponent<PhotonView>().RPC(nameof(rb.Push), RpcTarget.All,
-                        _pushForce * _rigidbody2D.velocity.normalized);
-                }
+                rb.GetComponent<PhotonView>().RPC(nameof(rb.Push), RpcTarget.All,
+                    _pushForce * _rigidbody2D.velocity.normalized);
             }
         }
-
-        if (PhotonNetwork.IsMasterClient)
-        {
-            if (col.CompareTag("BulletIgnore")) return;
+        if (col.CompareTag("BulletIgnore")) return;
             PhotonNetwork.Destroy(gameObject);
-        }
     }
     
 }
