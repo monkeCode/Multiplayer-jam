@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3745069593020596981}
   - component: {fileID: 6421362941355204436}
   - component: {fileID: -6971936101380507787}
-  m_Layer: 8
+  m_Layer: 13
   m_Name: Player1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -148,7 +148,7 @@ MonoBehaviour:
   speed: 100
   groundLayer:
     serializedVersion: 2
-    m_Bits: 897
+    m_Bits: 14209
   _maxHealth: 2
   _currentHealth: 2
   _jumpForce: 10

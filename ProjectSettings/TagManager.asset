@@ -19,8 +19,8 @@ TagManager:
   - PhysItem
   - Bullet
   - CameraBound
-  - 
-  - 
+  - ONLY PLAYER
+  - Player
   - 
   - 
   - 
