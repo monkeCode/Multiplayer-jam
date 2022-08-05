@@ -51,7 +51,10 @@ MonoBehaviour:
   _scenes:
   - Tutorial
   - LvL1
-  - LvL3
+  - LvL2
+  - LvL5
+  - LvL6
+  - LvL9
   _roomName: test1
   Player1: {fileID: 0}
   Player2: {fileID: 0}
