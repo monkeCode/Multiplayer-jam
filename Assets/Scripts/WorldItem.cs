@@ -31,6 +31,7 @@ public class WorldItem : MonoBehaviourPun, IItem, IPunObservable
         _item = Server.Instance.GetItem(itemName);
         if(sr != null)
             sr.sprite = _item.Sprite;
+        _audioSource = GetComponent<AudioSource>();
         _audioSource.clip = _dropSound;
         _audioSource.Play();
     }
