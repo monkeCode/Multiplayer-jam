@@ -1,9 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 
-public class UIManager : MonoBehaviour
+public class UIManager : MonoBehaviourPun
 {
     public static UIManager Instance { get; private set; }
     [SerializeField] private GameObject _diePanel;
@@ -34,6 +35,12 @@ public class UIManager : MonoBehaviour
         _diePanel.SetActive(true);
     }
     public void CloseDiePanel()
+    {
+        photonView.RPC(nameof(CloseRpc), RpcTarget.All);
+    }
+
+    [PunRPC]
+    private void CloseRpc()
     {
         _diePanel.SetActive(false);
     }

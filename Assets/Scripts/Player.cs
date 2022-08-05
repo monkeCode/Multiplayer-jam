@@ -8,6 +8,7 @@ using Photon.Realtime;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.LowLevel;
 
 public class Player : Entity
 {
@@ -188,8 +189,17 @@ public class Player : Entity
     protected override void Die()
     {
         UIManager.Instance.ShowDiePanel();
+        photonView.RPC(nameof(InputState), RpcTarget.All, false);
     }
-    
+
+    [PunRPC]
+    public void InputState(bool state)
+    {
+        if(state)
+            _inputer.Player.Enable();
+        else
+            _inputer.Player.Disable();
+    }
 
     public override void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {

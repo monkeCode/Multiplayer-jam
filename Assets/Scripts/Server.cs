@@ -21,7 +21,7 @@ public class Server : MonoBehaviourPunCallbacks
     public override void OnConnectedToMaster()
     {
         Debug.Log("OnConnectedToMaster() was called by PUN.");
-        PhotonNetwork.JoinOrCreateRoom(_roomName, new RoomOptions {MaxPlayers = 2}, TypedLobby.Default);
+        //PhotonNetwork.JoinOrCreateRoom(_roomName, new RoomOptions {MaxPlayers = 2}, TypedLobby.Default);
     }
     public override void OnCreatedRoom()
     {
@@ -76,7 +76,11 @@ public class Server : MonoBehaviourPunCallbacks
         PhotonNetwork.ConnectUsingSettings();
     }
     
-
+    public void JoinOrCreateRoom()
+    {
+        SceneManager.LoadScene("LogIn");
+        PhotonNetwork.JoinOrCreateRoom(_roomName, new RoomOptions {MaxPlayers = 2}, TypedLobby.Default);
+    }
     public void CreateRoom(string roomName)
     {
         PhotonNetwork.CreateRoom(roomName, new RoomOptions{ MaxPlayers = 2}, TypedLobby.Default);
@@ -105,7 +109,7 @@ public class Server : MonoBehaviourPunCallbacks
         PhotonNetwork.IsMessageQueueRunning = true;
         
     }
-    public Transform GetLookingObject( )
+    public Transform GetLookingObject()
     {
         try
         {
@@ -144,7 +148,8 @@ public class Server : MonoBehaviourPunCallbacks
     }
     public void ToMainMenu()
     {
-        
+        PhotonNetwork.LeaveRoom();
+        SceneManager.LoadScene("MainMenu");
     }
     
     private void UpdatePlayers()
@@ -156,6 +161,7 @@ public class Server : MonoBehaviourPunCallbacks
             //Player1.GetComponent<PhotonView>().RPC(nameof(Player1.SetNonDestroyable), RpcTarget.All);
             Player1?.Heal(int.MaxValue/2);
             Player1?.GetComponent<PhotonView>()?.RPC(nameof(Player1.DeleteActiveItem), RpcTarget.All);
+            Player1?.GetComponent<PhotonView>()?.RPC(nameof(Player1.InputState), RpcTarget.All, true);
         }
         if (Player2 != null)
         {
@@ -164,7 +170,11 @@ public class Server : MonoBehaviourPunCallbacks
             //Player2.GetComponent<PhotonView>().RPC(nameof(Player2.SetNonDestroyable), RpcTarget.All);
             Player2?.Heal(int.MaxValue/2);
             Player2?.GetComponent<PhotonView>()?.RPC(nameof(Player2.DeleteActiveItem), RpcTarget.All);
+            Player2?.GetComponent<PhotonView>()?.RPC(nameof(Player2.InputState), RpcTarget.All, true);
         }
-        
+    }
+    public void SetRoomName(string name)
+    {
+        _roomName = name;
     }
 }
