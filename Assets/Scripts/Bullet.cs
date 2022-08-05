@@ -21,7 +21,7 @@ public class Bullet : MonoBehaviourPun, IPunObservable
 
     }
 
-    private void Update()
+    protected virtual void Update()
     {
        _rigidbody2D.rotation = Mathf.Atan2(_rigidbody2D.velocity.y, _rigidbody2D.velocity.x) * Mathf.Rad2Deg - 90;
     }

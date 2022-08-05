@@ -148,9 +148,9 @@ MonoBehaviour:
   speed: 100
   groundLayer:
     serializedVersion: 2
-    m_Bits: 14209
-  _maxHealth: 2
-  _currentHealth: 2
+    m_Bits: 30593
+  _maxHealth: 5
+  _currentHealth: 5
   _jumpForce: 10
   _fallMultiplier: 4
   _lowJumpMultiplier: 3
