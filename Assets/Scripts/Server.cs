@@ -72,8 +72,6 @@ public class Server : MonoBehaviourPunCallbacks
     void Start()
     {
         Debug.Log(" started");
-        PhotonNetwork.AutomaticallySyncScene = true;
-        PhotonNetwork.IsMessageQueueRunning = false;
         PhotonNetwork.ConnectUsingSettings();
     }
     
@@ -152,12 +150,18 @@ public class Server : MonoBehaviourPunCallbacks
         PhotonNetwork.AutomaticallySyncScene = false;
         StartCoroutine(MoveToGameScene(SceneManager.GetActiveScene().name));
     }
-    
+
+    [PunRPC]
+    private void SelfLoadLvl(string name)
+    {
+        PhotonNetwork.AutomaticallySyncScene = false;
+        StartCoroutine(MoveToGameScene(name));
+    }
     public void LoadNextLvl()
     {
-        PhotonNetwork.AutomaticallySyncScene = true;
         UpdatePlayers();
-        StartCoroutine(MoveToGameScene(_scenes[++CurrentLvl % _scenes.Length]));
+        //StartCoroutine(MoveToGameScene(_scenes[++CurrentLvl % _scenes.Length]));
+        photonView.RPC(nameof(SelfLoadLvl), RpcTarget.All,_scenes[++CurrentLvl % _scenes.Length] );
     }
     public void ToMainMenu()
     {
