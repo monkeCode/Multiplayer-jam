@@ -9,7 +9,7 @@ public class Menu : MonoBehaviour
 
     public void Connect()
     {
-        Server.Instance.SetRoomName(_text.text);
+        Server.Instance.SetRoomName(_text.text.ToLower().Trim());
         Server.Instance.JoinOrCreateRoom();
     }
     public void Exit()
