@@ -77,10 +77,9 @@ public class Player : Entity
         };
         _inputer.Menu.RestartLvl.performed += context =>
         {
-            if (PhotonNetwork.IsMasterClient)
-            {
-                Server.Instance.RestartLvl();
-            }
+            if (!PhotonNetwork.IsMasterClient) return;
+            photonView.RPC(nameof(DestroyFuckingElevators), RpcTarget.All);
+            Server.Instance.RestartLvl();
         };
     }
     protected override void FixedUpdate()
@@ -194,14 +193,19 @@ public class Player : Entity
     protected override void Die()
     {
         UIManager.Instance.ShowDiePanel();
+        photonView.RPC(nameof(InputState), RpcTarget.All, false);
+        photonView.RPC(nameof(DestroyFuckingElevators), RpcTarget.All);
+    }
+
+    [PunRPC]
+    private void DestroyFuckingElevators()
+    {
         foreach(var lift in FindObjectsOfType(typeof(Lift)))
         {
             Destroy(((Lift)lift).gameObject);
         }
         DontDestroyOnLoad(gameObject);
-        photonView.RPC(nameof(InputState), RpcTarget.All, false);
     }
-
     [PunRPC]
     public void InputState(bool state)
     {
