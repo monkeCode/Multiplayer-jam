@@ -133,7 +133,8 @@ public class Server : MonoBehaviourPunCallbacks
         if (PhotonNetwork.IsMasterClient)
         {
             UpdatePlayers();
-            StartCoroutine(MoveToGameScene(SceneManager.GetActiveScene().name));
+            //StartCoroutine(MoveToGameScene(SceneManager.GetActiveScene().name));
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 
