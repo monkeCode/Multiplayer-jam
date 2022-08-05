@@ -12,12 +12,16 @@ public class Button : MonoBehaviour, IToggle
     private PhotonView _photonView;
     private SpriteRenderer _spriteRenderer;
     private int countClick = 0;
+    private AudioSource _source;
     [SerializeField] private Sprite[] _sprites;
+    [SerializeField] private AudioClip _onSound;
+    [SerializeField] private AudioClip _offSound;
 
     private void Start()
     {
         _photonView = GetComponent<PhotonView>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
+        _source = GetComponent<AudioSource>();
     }
 
     public void Toggle(bool isOn)
@@ -31,6 +35,9 @@ public class Button : MonoBehaviour, IToggle
     {
         _state = isOn;
         _spriteRenderer.sprite = isOn?_sprites[0]:_sprites[1];
+        _source.Stop();
+        _source.clip = isOn? _onSound : _offSound;
+        _source.Play();
         foreach (var toggle in _toggles)
         {
             toggle.GetComponent<IToggle>()?.Toggle(isOn);

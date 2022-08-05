@@ -11,11 +11,15 @@ public class WorldItem : MonoBehaviourPun, IItem, IPunObservable
     private  Rigidbody2D rb;
     private SpriteRenderer sr;
     private bool _canTake;
+    private AudioSource _audioSource;
    [SerializeField] private InventoryItem _item;
-   private IEnumerator Start()
+   [SerializeField] private AudioClip _pickupSound;
+    [SerializeField] private AudioClip _dropSound;
+    private IEnumerator Start()
     {
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
+        _audioSource = GetComponent<AudioSource>();
         if (_item != null)
             sr.sprite = _item.Sprite;
         yield return new WaitForSeconds(0.5f);
@@ -27,6 +31,7 @@ public class WorldItem : MonoBehaviourPun, IItem, IPunObservable
         _item = Server.Instance.GetItem(itemName);
         if(sr != null)
             sr.sprite = _item.Sprite;
+        _audioSource.PlayOneShot(_dropSound);
     }
     
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
@@ -56,12 +61,18 @@ public class WorldItem : MonoBehaviourPun, IItem, IPunObservable
         
     }
 
+    [PunRPC]
+    private void PickUpSound()
+    {
+        _audioSource.PlayOneShot(_pickupSound);
+    }
     private void OnTriggerEnter2D(Collider2D col)
     {
         if(_canTake && photonView.IsMine && col.transform.TryGetComponent(out Player player))
         {
             if (player.Item != null) return;
             player.GetComponent<PhotonView>().RPC(nameof(Player.SetItem), RpcTarget.All, _item.ItemName);
+            photonView.RPC(nameof(PickUpSound), RpcTarget.All);
             PhotonNetwork.Destroy(gameObject);
             //Destroy(gameObject);
         }

@@ -9,7 +9,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.LowLevel;
-
+[RequireComponent(typeof(AudioSource))]
 public class Player : Entity
 {
     enum PlayerState
@@ -22,6 +22,8 @@ public class Player : Entity
     [SerializeField] private float _maxSpeed;
     [SerializeField] private InventoryItem _item;
     [SerializeField] private LayerMask _wallLayer;
+    [SerializeField] private AudioClip _hitSound;
+    [SerializeField] private AudioClip _jumpSound;
     [SerializeField] private PlayerState _playerState { 
         get => (PlayerState) _animator.GetInteger("State"); 
         set => _animator.SetInteger("State", (int)value); }
@@ -29,7 +31,7 @@ public class Player : Entity
     private bool _isJump;
     private Inputer _inputer;
     private Animator _animator;
-
+    private AudioSource _audioSource;
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
@@ -46,6 +48,7 @@ public class Player : Entity
     {
         base.Start();
         _animator = GetComponent<Animator>();
+        _audioSource = GetComponent<AudioSource>();
         _playerState = _playerState;
         _inputer = new Inputer();
         _inputer.Enable();
@@ -153,6 +156,7 @@ public class Player : Entity
             rb.velocity = Vector2.up * _jumpForce;
             rb.velocity += Vector2.right * -wall * _jumpForce;
             _playerState = PlayerState.Jump;
+            photonView.RPC(nameof(PlaySound), RpcTarget.All,0);
         }
     }
 
@@ -160,6 +164,7 @@ public class Player : Entity
     {
         if(_currentHealth <= 0) return;
         photonView.RPC(nameof(TakeDamageAnim), RpcTarget.All);
+        photonView.RPC(nameof(PlaySound), RpcTarget.All, 1);
         base.TakeDamage(damage);
     }
 
@@ -201,6 +206,20 @@ public class Player : Entity
             _inputer.Player.Disable();
     }
 
+    [PunRPC]
+    private void PlaySound(int sound)
+    {
+        switch (sound)
+        {
+            case 0:
+                _audioSource.clip = _jumpSound;
+                break;
+            case 1:
+                _audioSource.clip = _hitSound;
+                break;
+        }
+        _audioSource.Play();
+    }
     public override void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         base.OnPhotonSerializeView(stream, info);
