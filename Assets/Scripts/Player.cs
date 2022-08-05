@@ -81,7 +81,7 @@ public class Player : Entity
             {
                 Server.Instance.RestartLvl();
             }
-        }
+        };
     }
     protected override void FixedUpdate()
     {
