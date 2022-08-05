@@ -103,16 +103,17 @@ public class Server : MonoBehaviourPunCallbacks
     private void MessageRunning(bool state)
     {
         PhotonNetwork.IsMessageQueueRunning = state;
+        Debug.Log("message state " + state);
     }
     public IEnumerator MoveToGameScene(string nameScene)
     {
-        photonView.RPC(nameof(MessageRunning), RpcTarget.All, false);
+        //photonView.RPC(nameof(MessageRunning), RpcTarget.All, false);
         LoadLvl(nameScene);
         while(!_sceneLoaded)
         {
             yield return null;
         }
-        photonView.RPC(nameof(MessageRunning), RpcTarget.All, true);
+        //photonView.RPC(nameof(MessageRunning), RpcTarget.All, true);
         
     }
     public Transform GetLookingObject()
