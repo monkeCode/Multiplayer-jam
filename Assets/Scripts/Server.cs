@@ -98,16 +98,21 @@ public class Server : MonoBehaviourPunCallbacks
         PhotonNetwork.LoadLevel(name);
         _sceneLoaded = true;
     }
-    
+
+    [PunRPC]
+    private void MessageRunning(bool state)
+    {
+        PhotonNetwork.IsMessageQueueRunning = state;
+    }
     public IEnumerator MoveToGameScene(string nameScene)
     {
-        PhotonNetwork.IsMessageQueueRunning = false;
+        photonView.RPC(nameof(MessageRunning), RpcTarget.All, false);
         LoadLvl(nameScene);
         while(!_sceneLoaded)
         {
             yield return null;
         }
-        PhotonNetwork.IsMessageQueueRunning = true;
+        photonView.RPC(nameof(MessageRunning), RpcTarget.All, true);
         
     }
     public Transform GetLookingObject()
@@ -133,8 +138,8 @@ public class Server : MonoBehaviourPunCallbacks
         if (PhotonNetwork.IsMasterClient)
         {
             UpdatePlayers();
-            //StartCoroutine(MoveToGameScene(SceneManager.GetActiveScene().name));
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            StartCoroutine(MoveToGameScene(SceneManager.GetActiveScene().name));
+            //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 
