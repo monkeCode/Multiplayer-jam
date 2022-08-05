@@ -31,7 +31,8 @@ public class WorldItem : MonoBehaviourPun, IItem, IPunObservable
         _item = Server.Instance.GetItem(itemName);
         if(sr != null)
             sr.sprite = _item.Sprite;
-        _audioSource.PlayOneShot(_dropSound);
+        _audioSource.clip = _dropSound;
+        _audioSource.Play();
     }
     
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
@@ -64,7 +65,8 @@ public class WorldItem : MonoBehaviourPun, IItem, IPunObservable
     [PunRPC]
     private void PickUpSound()
     {
-        _audioSource.PlayOneShot(_pickupSound);
+        _audioSource.clip = _pickupSound;
+        _audioSource.Play();
     }
     private void OnTriggerEnter2D(Collider2D col)
     {
