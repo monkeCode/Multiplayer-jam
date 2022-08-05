@@ -196,7 +196,7 @@ public class Player : Entity
         UIManager.Instance.ShowDiePanel();
         foreach(var lift in FindObjectsOfType(typeof(Lift)))
         {
-            Destroy(lift);
+            Destroy(lift as GameObject);
         }
         photonView.RPC(nameof(InputState), RpcTarget.All, false);
     }
