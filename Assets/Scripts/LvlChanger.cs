@@ -41,7 +41,7 @@ public class LvlChanger : MonoBehaviourPun, IPunObservable
             _text.text = "Current lvl: Tutorial";
         else
         {
-            _text.text = "Current lvl: " + Server.Instance.CurrentLvl + 1;
+            _text.text = "Current lvl: " + (Server.Instance.CurrentLvl + 1);
         }
     }
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)

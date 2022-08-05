@@ -159,9 +159,16 @@ public class Server : MonoBehaviourPunCallbacks
     }
     public void LoadNextLvl()
     {
-        //StartCoroutine(MoveToGameScene(_scenes[++CurrentLvl % _scenes.Length]));
         UpdatePlayers();
-        photonView.RPC(nameof(SelfLoadLvl), RpcTarget.All,_scenes[++CurrentLvl % _scenes.Length] );
+        photonView.RPC(nameof(SyncLvl), RpcTarget.All, true);
+        StartCoroutine(MoveToGameScene(_scenes[++CurrentLvl % _scenes.Length]));
+        //photonView.RPC(nameof(SelfLoadLvl), RpcTarget.All,_scenes[++CurrentLvl % _scenes.Length] );
+    }
+
+    [PunRPC]
+    private void SyncLvl(bool state)
+    {
+        PhotonNetwork.AutomaticallySyncScene = state;
     }
     public void ToMainMenu()
     {
