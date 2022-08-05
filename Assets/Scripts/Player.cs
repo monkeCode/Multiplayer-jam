@@ -194,6 +194,10 @@ public class Player : Entity
     protected override void Die()
     {
         UIManager.Instance.ShowDiePanel();
+        foreach(var lift in FindObjectsOfType(typeof(Lift)))
+        {
+            Destroy(lift);
+        }
         photonView.RPC(nameof(InputState), RpcTarget.All, false);
     }
 
