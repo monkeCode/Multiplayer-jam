@@ -9,7 +9,7 @@ public class Pistol : InventoryItem
     [SerializeField] private float shootDelay;
     [SerializeField] private float _bulletSpeed;
     private bool _cantShoot;
-    private DateTime lastTimeShoot;
+    private DateTime lastTimeShoot = DateTime.Now;
     public override void Use(Player player)
     {
         if (_cantShoot || !player.GetComponent<PhotonView>().IsMine) return;
