@@ -27,7 +27,7 @@ public class Fan : MonoBehaviour,IToggle, IPunObservable
         foreach (var rb in _rigidbodies)
         {
             var f = new Vector2(Mathf.Cos((transform.eulerAngles.z +90) * Mathf.Deg2Rad), Mathf.Sin((transform.eulerAngles.z +90) * Mathf.Deg2Rad) * _force);
-            f*=Time.deltaTime * 100;
+            f*=Time.deltaTime * 175;
             rb.AddForce(f);
         }
             
