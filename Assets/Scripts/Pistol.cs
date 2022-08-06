@@ -12,10 +12,9 @@ public class Pistol : InventoryItem
     private DateTime lastTimeShoot = DateTime.Now;
     public override void Use(Player player)
     {
-        if (_cantShoot || !player.GetComponent<PhotonView>().IsMine) return;
+        if (!player.GetComponent<PhotonView>().IsMine) return;
         var currentTime = DateTime.Now;
         if((currentTime - lastTimeShoot).TotalSeconds < shootDelay) return;
-        _cantShoot = true;
         lastTimeShoot = currentTime;
         Shoot(player);
     }
@@ -28,7 +27,8 @@ public class Pistol : InventoryItem
     private void Shoot(Component player)
     {
         var bullet = PhotonNetwork.Instantiate("Bullet", player.transform.position, Quaternion.identity);
-        var mousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+        var camera = Camera.main;
+        var mousePos = camera.ScreenToWorldPoint(new Vector3(Mouse.current.position.ReadValue().x, Mouse.current.position.ReadValue().y, camera.nearClipPlane));
         Vector2 force = mousePos - player.transform.position;
         Debug.Log(mousePos);
         Debug.Log(player.transform.position);

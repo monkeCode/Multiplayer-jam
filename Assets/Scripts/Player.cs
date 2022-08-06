@@ -60,8 +60,9 @@ public class Player : Entity
         {
             if (_item != null && photonView.IsMine)
             {
-                var force = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue()) - transform.position;
-                //photonView.RPC(nameof(DropItem), RpcTarget.All, (Vector2)force);
+                var camera = Camera.main;
+                var mousePos = camera.ScreenToWorldPoint(new Vector3(Mouse.current.position.ReadValue().x, Mouse.current.position.ReadValue().y, camera.nearClipPlane));
+                var force = mousePos - transform.position;
                 DropItem(force.normalized);
             }
         };
