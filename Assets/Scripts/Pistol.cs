@@ -14,7 +14,7 @@ public class Pistol : InventoryItem
     {
         if (_cantShoot || !player.GetComponent<PhotonView>().IsMine) return;
         var currentTime = DateTime.Now;
-        if((currentTime - lastTimeShoot).TotalSeconds > shootDelay) return;
+        if((currentTime - lastTimeShoot).TotalSeconds < shootDelay) return;
         _cantShoot = true;
         lastTimeShoot = currentTime;
         Shoot(player);
