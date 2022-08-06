@@ -1,8 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using Photon.Pun;
-using Unity.VisualScripting;
 using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Saw : MonoBehaviourPun, IToggle
@@ -67,7 +63,7 @@ public class Saw : MonoBehaviourPun, IToggle
         {
             if (normals[i] != Vector2.zero)
             {
-                moveDir += normals[i].Perpendicular1();
+                moveDir += -Vector2.Perpendicular(normals[i]);
             }
         }
 
