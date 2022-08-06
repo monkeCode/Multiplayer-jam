@@ -19,7 +19,7 @@ public class LvlChanger : MonoBehaviourPun, IPunObservable
         if (PhotonNetwork.IsMasterClient)
         {
             Server.Instance.CurrentLvl--;
-            if (Server.Instance.CurrentLvl < 0)
+            if (Server.Instance.CurrentLvl < -1)
                 Server.Instance.CurrentLvl = Server.Instance.CountLvl - 2;
             UpdateText();
         }
